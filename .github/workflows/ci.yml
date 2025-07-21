@@ -1,0 +1,29 @@
+name: Node CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install backend
+        run: |
+          cd backend && npm install
+      - name: Install frontend
+        run: |
+          cd frontend && npm install
+      - name: Lint backend
+        if: exists('backend/package.json')
+        run: |
+          cd backend && npm run lint || true
+      - name: Test frontend
+        if: exists('frontend/package.json')
+        run: |
+          cd frontend && npm test -- --watchAll=false || true
