@@ -25,7 +25,7 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 | Phase                    | Dates             | Goals & Deliverables                                           |
 |--------------------------|-------------------|----------------------------------------------------------------|
 | **1. Discovery & Planning** | Weeks 1–4 (Jul 21–Aug 17 ’25) | • Finalize MVP scope & data sources<br>• Validate APIs & sample data<br>• Architecture diagram & sprint plan |
-| **2. MVP Development**     | Weeks 5–16 (Aug 18–Oct 30 ’25) | • Data ingestion scripts (Node.js)<br>• Firestore schema & automated jobs<br>• REST API (Swagger)<br>• Frontend MVP (Flutter Web/React)<br>• Unit tests & accessibility review |
+| **2. MVP Development**     | Weeks 5–16 (Aug 18–Oct 30 ’25) | • Data ingestion scripts (Node.js)<br>• Firestore schema & automated jobs<br>• REST API (Swagger)<br>• Frontend MVP (React)<br>• Unit tests & accessibility review |
 | **3. Beta Launch**         | Weeks 17–20 (Oct 31–Nov 27 ’25) | • Private beta release to NGOs, researchers<br>• Collect feedback & bug reports<br>• v0.1 public release |
 | **4. Iteration & Polish**  | Weeks 21–24 (Nov 28–Dec 25 ’25) | • UX/UI refinements<br>• Expanded documentation & demos<br>• Launch blog post & social outreach |
 
@@ -40,8 +40,8 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 └──────────────┘      └─────────────────┘      └──────────────┘
        │                     │                      │
        ▼                     ▼                      ▼
-   Data Fetch            Node.js API            Flutter Web
-(API + Scrapers)       (Express + Swagger)      (or React)
+    Data Fetch            Node.js API            React Frontend
+(API + Scrapers)       (Express + Swagger)
 ````
 
 * **Data Ingestion**
@@ -77,8 +77,7 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 
 ### Prerequisites
 
-* [Node.js ≥16.x](https://nodejs.org/)
-* [Flutter SDK](https://flutter.dev/) (if using Flutter Web) or `npm`/`yarn` (for React)
+* [Node.js ≥16.x](https://nodejs.org/) and `npm` or `yarn`
 * Google Cloud project with Firestore enabled
 * Service account JSON with permissions for Firestore & Cloud Run
 
