@@ -1,7 +1,6 @@
 # Global Transparency Dashboard
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-[![Build Status](https://img.shields.io/github/actions/workflow/status/chalebgwa/global-transparency-dashboard/ci.yml?branch=main)](https://github.com/chalebgwa/global-transparency-dashboard/actions)  
 [![Coverage Status](https://img.shields.io/codecov/c/github/chalebgwa/global-transparency-dashboard)](https://codecov.io/gh/chalebgwa/global-transparency-dashboard)
 
 A web-based, open‑source platform that aggregates and visualizes key public‑sector metrics—budgets, corruption perception, health and education spending—across countries. The interactive UI is built with **React**, enabling journalists, NGOs, researchers, and citizens to explore trends, compare nations, and gain data‑driven insights into government transparency.
@@ -41,8 +40,10 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 └──────────────┘      └─────────────────┘      └──────────────┘
        │                     │                      │
        ▼                     ▼                      ▼
+
    Data Fetch            Node.js API            React Web
 (API + Scrapers)       (Express + Swagger)      (Frontend)
+
 ````
 
 * **Data Ingestion**
@@ -87,6 +88,15 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 ```bash
 git clone https://github.com/chalebgwa/global-transparency-dashboard.git
 cd global-transparency-dashboard
+
+# Project layout
+#
+# ```text
+# global-transparency-dashboard/
+# ├── backend/   # Node.js/Express API
+# └── frontend/  # React or Flutter Web client
+# ```
+
 cp .env.example .env
 # Update .env with your project IDs, API keys, etc.
 ```
