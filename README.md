@@ -3,12 +3,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![Coverage Status](https://img.shields.io/codecov/c/github/chalebgwa/global-transparency-dashboard)](https://codecov.io/gh/chalebgwa/global-transparency-dashboard)
 
-A web-based, open‑source platform that aggregates and visualizes key public‑sector metrics—budgets, corruption perception, health and education spending—across countries. Built with modern web tech, it enables journalists, NGOs, researchers, and citizens to explore trends, compare nations, and gain data‑driven insights into government transparency.
+A web-based, open‑source platform that aggregates and visualizes key public‑sector metrics—budgets, corruption perception, health and education spending—across countries. The interactive UI is built with **React**, enabling journalists, NGOs, researchers, and citizens to explore trends, compare nations, and gain data‑driven insights into government transparency.
 
 ---
 
 ## 🚀 Features
 
+- **React UI**: Modern interface built entirely with React.
 - **Multi‑Country Coverage**: Select from 5 inaugural countries (Botswana, South Africa, Kenya, Nigeria, USA).
 - **Key Metrics Cards**: Quick‑glance overview of annual budget, CPI score, health & education spend.
 - **Interactive Charts**: Time‑series visualizations (5–10 years) with hover tooltips.
@@ -39,8 +40,10 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 └──────────────┘      └─────────────────┘      └──────────────┘
        │                     │                      │
        ▼                     ▼                      ▼
-    Data Fetch            Node.js API            React Frontend
-(API + Scrapers)       (Express + Swagger)
+
+   Data Fetch            Node.js API            React Web
+(API + Scrapers)       (Express + Swagger)      (Frontend)
+
 ````
 
 * **Data Ingestion**
