@@ -85,6 +85,15 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 ```bash
 git clone https://github.com/chalebgwa/global-transparency-dashboard.git
 cd global-transparency-dashboard
+
+# Project layout
+#
+# ```text
+# global-transparency-dashboard/
+# ├── backend/   # Node.js/Express API
+# └── frontend/  # React or Flutter Web client
+# ```
+
 cp .env.example .env
 # Update .env with your project IDs, API keys, etc.
 ```
