@@ -1,0 +1,42 @@
+[
+  {
+    "code": "BW",
+    "name": "Botswana",
+    "budget": 8000,
+    "cpi": 55,
+    "health_exp": 300,
+    "education_exp": 500
+  },
+  {
+    "code": "ZA",
+    "name": "South Africa",
+    "budget": 120000,
+    "cpi": 44,
+    "health_exp": 500,
+    "education_exp": 800
+  },
+  {
+    "code": "KE",
+    "name": "Kenya",
+    "budget": 15000,
+    "cpi": 32,
+    "health_exp": 150,
+    "education_exp": 300
+  },
+  {
+    "code": "NG",
+    "name": "Nigeria",
+    "budget": 30000,
+    "cpi": 25,
+    "health_exp": 100,
+    "education_exp": 200
+  },
+  {
+    "code": "US",
+    "name": "United States",
+    "budget": 4000000,
+    "cpi": 69,
+    "health_exp": 10000,
+    "education_exp": 12000
+  }
+]
