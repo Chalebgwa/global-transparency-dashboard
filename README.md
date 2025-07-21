@@ -1,7 +1,6 @@
 # Global Transparency Dashboard
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-[![Build Status](https://img.shields.io/github/actions/workflow/status/chalebgwa/global-transparency-dashboard/ci.yml?branch=main)](https://github.com/chalebgwa/global-transparency-dashboard/actions)  
 [![Coverage Status](https://img.shields.io/codecov/c/github/chalebgwa/global-transparency-dashboard)](https://codecov.io/gh/chalebgwa/global-transparency-dashboard)
 
 A web-based, open‑source platform that aggregates and visualizes key public‑sector metrics—budgets, corruption perception, health and education spending—across countries. Built with modern web tech, it enables journalists, NGOs, researchers, and citizens to explore trends, compare nations, and gain data‑driven insights into government transparency.
