@@ -22,3 +22,22 @@ describe('GET /api/v1/countries/:code', () => {
     expect(res.statusCode).toBe(404);
   });
 });
+
+describe('Metric endpoints', () => {
+  it('should return budget info', async () => {
+    const res = await request(app).get('/api/v1/countries/US/budget');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.value).toBeGreaterThan(0);
+  });
+
+  it('should return cpi info', async () => {
+    const res = await request(app).get('/api/v1/countries/US/cpi');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.value).toBeGreaterThan(0);
+  });
+
+  it('should return 404 for unknown country', async () => {
+    const res = await request(app).get('/api/v1/countries/XX/budget');
+    expect(res.statusCode).toBe(404);
+  });
+});
