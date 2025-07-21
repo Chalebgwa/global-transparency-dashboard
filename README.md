@@ -6,6 +6,8 @@
 A web-based, open‑source platform that aggregates and visualizes key public‑sector metrics—budgets, corruption perception, health and education spending—across countries. The interactive UI is built with **React**, enabling journalists, NGOs, researchers, and citizens to explore trends, compare nations, and gain data‑driven insights into government transparency.
 
 ---
+For planning and data model details see [docs/mvp-requirements.md](docs/mvp-requirements.md).
+
 
 ## 🚀 Features
 
@@ -32,6 +34,8 @@ A web-based, open‑source platform that aggregates and visualizes key public‑
 ---
 
 ## 🏗️ Technical Architecture
+For a simplified diagram see [docs/architecture.md](docs/architecture.md).
+
 
 ```text
 ┌──────────────┐      ┌─────────────────┐      ┌──────────────┐
