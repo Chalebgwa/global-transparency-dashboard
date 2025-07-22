@@ -13,6 +13,8 @@ Run tests:
 npm test
 ```
 
+API documentation is available at `GET /docs` when the server is running.
+
 ### Sample API Endpoints
 
 - `GET /api/v1/health` – basic health check.
