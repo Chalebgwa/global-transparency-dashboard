@@ -3,12 +3,24 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 const countriesRouter = require('./routes/countries');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
+/**
+ * @swagger
+ * /api/v1/health:
+ *   get:
+ *     summary: Health check endpoint
+ *     responses:
+ *       200:
+ *         description: Server is running
+ */
 app.get('/api/v1/health', (req, res) => {
-  res.json({status: 'ok'});
+  res.json({ status: 'ok' });
 });
 
 app.use('/api/v1/countries', countriesRouter);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 if (require.main === module) {
   app.listen(PORT, () => {
