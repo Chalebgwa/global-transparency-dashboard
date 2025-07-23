@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 function App() {
   const [countries, setCountries] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     fetch('/api/v1/countries')
@@ -15,8 +16,16 @@ function App() {
   const loadCountry = code => {
     fetch(`/api/v1/countries/${code}`)
       .then(res => res.json())
-      .then(setSelected)
-      .catch(() => setSelected(null));
+      .then(data => {
+        setSelected(data);
+        return fetch(`/api/v1/countries/${code}/budget/history`);
+      })
+      .then(res => res.json())
+      .then(setHistory)
+      .catch(() => {
+        setSelected(null);
+        setHistory([]);
+      });
   };
 
   return (
@@ -38,6 +47,12 @@ function App() {
           <p>CPI: {selected.cpi}</p>
           <p>Health Expenditure: {selected.health_exp}</p>
           <p>Education Expenditure: {selected.education_exp}</p>
+          <h3>Budget History</h3>
+          <ul>
+            {history.map(row => (
+              <li key={row.year}>{row.year}: {row.value}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

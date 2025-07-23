@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const countries = require('../data/countries.json');
+const budgetHistory = require('../data/budgetHistory.json');
 
 /**
  * @swagger
@@ -67,6 +68,31 @@ router.get('/:code/budget', (req, res) => {
     return res.status(404).json({ error: 'Country not found' });
   }
   res.json({ year: 2024, value: country.budget, currency: 'USD' });
+});
+
+/**
+ * @swagger
+ * /api/v1/countries/{code}/budget/history:
+ *   get:
+ *     summary: Get budget history for a country
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ISO country code
+ *     responses:
+ *       200:
+ *         description: Array of yearly budgets
+ */
+router.get('/:code/budget/history', (req, res) => {
+  const code = req.params.code.toUpperCase();
+  const history = budgetHistory[code];
+  if (!history) {
+    return res.status(404).json({ error: 'Country not found' });
+  }
+  res.json(history);
 });
 
 /**

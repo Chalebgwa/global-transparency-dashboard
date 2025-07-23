@@ -30,6 +30,13 @@ describe('Metric endpoints', () => {
     expect(res.body.value).toBeGreaterThan(0);
   });
 
+  it('should return budget history', async () => {
+    const res = await request(app).get('/api/v1/countries/US/budget/history');
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBeGreaterThan(0);
+  });
+
   it('should return cpi info', async () => {
     const res = await request(app).get('/api/v1/countries/US/cpi');
     expect(res.statusCode).toBe(200);
