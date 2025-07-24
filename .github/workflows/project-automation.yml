@@ -1,0 +1,114 @@
+name: Project Board Automation
+
+on:
+  issues:
+    types: [opened, closed, reopened, assigned]
+  pull_request:
+    types: [opened, ready_for_review, closed]
+  
+permissions:
+  issues: write
+  pull-requests: write
+  repository-projects: write
+
+jobs:
+  project-automation:
+    runs-on: ubuntu-latest
+    if: github.repository == 'Chalebgwa/global-transparency-dashboard'
+    steps:
+      - name: Add issue to project board
+        if: github.event_name == 'issues' && github.event.action == 'opened'
+        uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: https://github.com/users/Chalebgwa/projects/1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Move to In Progress when PR opens
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: https://github.com/users/Chalebgwa/projects/1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Auto-assign phase labels
+        if: github.event_name == 'issues' && github.event.action == 'opened'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.toLowerCase();
+            const body = issue.body || '';
+            
+            // Auto-assign phase labels based on content
+            let phaseLabel = null;
+            if (body.includes('phase-1') || title.includes('discovery') || title.includes('planning')) {
+              phaseLabel = 'phase-1';
+            } else if (body.includes('phase-2') || title.includes('mvp') || title.includes('development')) {
+              phaseLabel = 'phase-2';
+            } else if (body.includes('phase-3') || title.includes('beta') || title.includes('launch')) {
+              phaseLabel = 'phase-3';
+            } else if (body.includes('phase-4') || title.includes('polish') || title.includes('iteration')) {
+              phaseLabel = 'phase-4';
+            }
+            
+            // Auto-assign component labels
+            let componentLabels = [];
+            if (body.includes('backend') || body.includes('api') || body.includes('server')) {
+              componentLabels.push('backend');
+            }
+            if (body.includes('frontend') || body.includes('react') || body.includes('ui')) {
+              componentLabels.push('frontend');
+            }
+            if (body.includes('data') || body.includes('ingestion') || body.includes('api')) {
+              componentLabels.push('data');
+            }
+            if (body.includes('ci/cd') || body.includes('pipeline') || body.includes('deployment')) {
+              componentLabels.push('infrastructure');
+            }
+            if (body.includes('documentation') || body.includes('docs')) {
+              componentLabels.push('documentation');
+            }
+            if (body.includes('test') || body.includes('testing')) {
+              componentLabels.push('testing');
+            }
+            
+            // Add labels
+            const labelsToAdd = [phaseLabel, ...componentLabels].filter(Boolean);
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labelsToAdd
+              });
+            }
+            
+  notify-new-issue:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    steps:
+      - name: Notify team of new issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            console.log(`New issue created: ${issue.title}`);
+            console.log(`Issue number: #${issue.number}`);
+            console.log(`Created by: ${issue.user.login}`);
+            
+            // Add a welcome comment for first-time contributors
+            const isFirstTime = issue.user.login !== 'Chalebgwa';
+            if (isFirstTime) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `👋 Thank you for creating this issue! 
+
+This issue has been automatically added to our project board. A maintainer will review and triage it soon.
+
+If this is your first contribution, please check out our [Contributing Guide](./CONTRIBUTING.md) and [Project Management Documentation](./docs/project-management.md).
+
+For questions, feel free to ask in the comments or join our [Discussions](https://github.com/Chalebgwa/global-transparency-dashboard/discussions).`
+              });
+            }

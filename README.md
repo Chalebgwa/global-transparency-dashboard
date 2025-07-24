@@ -140,9 +140,33 @@ to explore Swagger‑UI and test endpoints.
 
 ---
 
+## 📋 Project Management
+
+We use a comprehensive project management system to track development progress:
+
+- **📊 [Project Board](https://github.com/users/Chalebgwa/projects/1)**: Track all issues and tasks through their lifecycle
+- **🎯 [Project Phases](docs/project-management.md#project-phases)**: Organized development in 4 phases from Discovery to Launch
+- **📝 [Issue Templates](.github/ISSUE_TEMPLATE/)**: Standardized templates for features and bugs
+- **🤖 [Automation](.github/workflows/project-automation.yml)**: Automatic project board updates and issue labeling
+
+### Current Development Phase
+We are currently in **Phase 1: Discovery & Planning** (Weeks 1-4), focusing on:
+- ✅ Validating data source APIs
+- 🏗️ Finalizing Firestore data model
+- 📐 Creating architecture diagrams
+
+See our [Project Management Guide](docs/project-management.md) for detailed information about our workflow.
+
+---
+
 ## 🤝 Contributing
 
-1. ⭐️ **Fork** the repo
+1. ⭐️ **Browse issues** on our [Project Board](https://github.com/users/Chalebgwa/projects/1)
+2. 🏗️ **Pick an issue** from the "Ready" column and assign yourself
+3. 🔀 **Create** a feature branch (`git checkout -b feature/xyz`)
+4. 🔧 **Work** and **commit** (`git commit -m "Add xyz"`)
+5. 📤 **Push** and **open a PR** that references the issue (`Closes #123`)
+6. ✅ CI will run tests—once green, we'll review and merge
 2. 🔀 **Create** a feature branch (`git checkout -b feature/xyz`)
 3. 🔧 **Work** and **commit** (`git commit -m "Add xyz"`)
 4. 📤 **Push** and **open a PR**

@@ -19,11 +19,12 @@ jobs:
       - name: Install frontend
         run: |
           cd frontend && npm install
+      - name: Test backend
+        run: |
+          cd backend && npm test
       - name: Lint backend
-        if: exists('backend/package.json')
         run: |
           cd backend && npm run lint || true
       - name: Test frontend
-        if: exists('frontend/package.json')
         run: |
           cd frontend && npm test -- --watchAll=false || true
