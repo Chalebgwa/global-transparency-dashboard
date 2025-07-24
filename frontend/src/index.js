@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import RadialTimeChart from './components/RadialTimeChart';
+import OrganicBubbleChart from './components/OrganicBubbleChart';
+import CircularProgress from './components/CircularProgress';
+import FlowingMultiChart from './components/FlowingMultiChart';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -73,155 +77,203 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Global Transparency Dashboard</h1>
-      <p>API MVP - Comprehensive transparency metrics for government budgets, corruption perception, and expenditures</p>
+    <div style={{ 
+      padding: '20px', 
+      fontFamily: 'Georgia, serif',
+      backgroundColor: '#f8f6f3',
+      minHeight: '100vh'
+    }}>
+      <div style={{ 
+        textAlign: 'center', 
+        marginBottom: '40px',
+        background: 'linear-gradient(135deg, #E8D5C4, #F4E4C1)',
+        padding: '30px',
+        borderRadius: '20px',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
+      }}>
+        <h1 style={{ 
+          color: '#8E7CC3', 
+          margin: '0 0 10px 0',
+          fontSize: '2.5em',
+          fontWeight: '300',
+          letterSpacing: '2px'
+        }}>
+          Global Transparency Dashboard
+        </h1>
+        <p style={{ 
+          color: '#666', 
+          fontSize: '1.1em',
+          fontStyle: 'italic',
+          margin: 0
+        }}>
+          Organic visualization of government transparency metrics inspired by nature's patterns
+        </p>
+      </div>
       
-      <div style={{ marginBottom: '20px' }}>
-        <h2>Countries</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+        <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Select a Country</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center' }}>
           {countries.map(c => (
             <button 
               key={c.code}
               onClick={() => loadCountry(c.code)}
               style={{
-                padding: '10px 15px',
-                backgroundColor: selected?.code === c.code ? '#007bff' : '#f8f9fa',
-                color: selected?.code === c.code ? 'white' : 'black',
-                border: '1px solid #ddd',
-                borderRadius: '5px',
-                cursor: 'pointer'
+                padding: '15px 25px',
+                backgroundColor: selected?.code === c.code ? '#8E7CC3' : '#fff',
+                color: selected?.code === c.code ? 'white' : '#333',
+                border: `3px solid ${selected?.code === c.code ? '#8E7CC3' : '#E8D5C4'}`,
+                borderRadius: '25px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'all 0.3s ease',
+                boxShadow: selected?.code === c.code ? '0 6px 16px rgba(142, 124, 195, 0.3)' : '0 2px 8px rgba(0,0,0,0.1)',
+                transform: selected?.code === c.code ? 'translateY(-2px)' : 'none'
               }}
             >
-              {c.name} ({c.code})
+              {c.name}
             </button>
           ))}
         </div>
       </div>
 
       {selected && (
-        <div data-testid="country-details" style={{ marginTop: '30px' }}>
-          <h2>{selected.name} - Key Metrics</h2>
+        <div data-testid="country-details" style={{ marginTop: '40px' }}>
+          <h2 style={{ 
+            textAlign: 'center', 
+            color: '#8E7CC3', 
+            fontSize: '2em',
+            marginBottom: '40px',
+            fontWeight: '300'
+          }}>
+            {selected.name} - Transparency Insights
+          </h2>
           
-          {/* Current Metrics Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-            <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', backgroundColor: '#f8f9fa' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#007bff' }}>Total Budget</h3>
-              <p style={{ fontSize: '24px', fontWeight: 'bold', margin: '0' }}>
+          {/* Organic Key Metrics with Circular Progress */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+            gap: '20px', 
+            marginBottom: '50px',
+            justifyItems: 'center'
+          }}>
+            <CircularProgress 
+              value={selected.cpi} 
+              maxValue={100}
+              title="Corruption Perception"
+              color="#A8C8E8"
+            />
+            <div style={{
+              background: 'linear-gradient(135deg, #E8A598, #F0D0C0)',
+              borderRadius: '20px',
+              padding: '30px',
+              textAlign: 'center',
+              boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
+              minWidth: '200px'
+            }}>
+              <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Total Budget</h3>
+              <p style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '0', color: '#fff' }}>
                 {formatCurrency(selected.budget)}
               </p>
-              <small style={{ color: '#666' }}>Current Year</small>
+              <small style={{ color: 'rgba(255,255,255,0.8)' }}>Current Year</small>
             </div>
-            
-            <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', backgroundColor: '#f8f9fa' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#28a745' }}>Corruption Perception Index</h3>
-              <p style={{ fontSize: '24px', fontWeight: 'bold', margin: '0' }}>
-                {selected.cpi}/100
-              </p>
-              <small style={{ color: '#666' }}>Higher = Less Corrupt</small>
-            </div>
-            
-            <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', backgroundColor: '#f8f9fa' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#dc3545' }}>Health Expenditure</h3>
-              <p style={{ fontSize: '24px', fontWeight: 'bold', margin: '0' }}>
+            <div style={{
+              background: 'linear-gradient(135deg, #E8B4B8, #F4E4C1)',
+              borderRadius: '20px',
+              padding: '30px',
+              textAlign: 'center',
+              boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
+              minWidth: '200px'
+            }}>
+              <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Health Per Capita</h3>
+              <p style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '0', color: '#fff' }}>
                 {formatCurrency(selected.health_exp)}
               </p>
-              <small style={{ color: '#666' }}>Per Capita</small>
+              <small style={{ color: 'rgba(255,255,255,0.8)' }}>Annual Expenditure</small>
             </div>
-            
-            <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', backgroundColor: '#f8f9fa' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#ffc107' }}>Education Expenditure</h3>
-              <p style={{ fontSize: '24px', fontWeight: 'bold', margin: '0' }}>
+            <div style={{
+              background: 'linear-gradient(135deg, #A8C8A8, #C0E0C0)',
+              borderRadius: '20px',
+              padding: '30px',
+              textAlign: 'center',
+              boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
+              minWidth: '200px'
+            }}>
+              <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Education Per Capita</h3>
+              <p style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '0', color: '#fff' }}>
                 {formatCurrency(selected.education_exp)}
               </p>
-              <small style={{ color: '#666' }}>Per Capita</small>
+              <small style={{ color: 'rgba(255,255,255,0.8)' }}>Annual Expenditure</small>
             </div>
           </div>
 
-          {/* Budget Breakdown */}
-          {breakdown && (
-            <div style={{ marginBottom: '30px' }}>
-              <h3>Budget Breakdown by Sector ({breakdown.year})</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
-                {Object.entries(breakdown.sectors).map(([sector, amount]) => (
-                  <div key={sector} style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '10px' }}>
-                    <strong style={{ textTransform: 'capitalize' }}>
-                      {sector.replace('_', ' ')}
-                    </strong>
-                    <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#007bff' }}>
-                      {formatLargeNumber(amount)}
-                    </div>
-                    <small style={{ color: '#666' }}>
-                      {((amount / breakdown.total) * 100).toFixed(1)}% of total
-                    </small>
-                  </div>
-                ))}
-              </div>
-              <small style={{ color: '#666', marginTop: '10px', display: 'block' }}>
-                Source: {breakdown.source}
-              </small>
-            </div>
-          )}
+          {/* Fragapane-style Charts */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+            gap: '30px',
+            marginBottom: '40px'
+          }}>
+            {/* Budget Breakdown as Organic Bubble Chart */}
+            {breakdown && (
+              <OrganicBubbleChart 
+                data={breakdown}
+                title="Budget Allocation by Sector"
+                formatValue={formatLargeNumber}
+              />
+            )}
 
-          {/* Historical Data */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-            {/* Budget History */}
-            <div>
-              <h3>Budget History</h3>
-              <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '15px' }}>
-                {history.map(row => (
-                  <div key={row.year} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #eee' }}>
-                    <span>{row.year}</span>
-                    <span style={{ fontWeight: 'bold' }}>{formatLargeNumber(row.value)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* Budget History as Radial Time Chart */}
+            {history.length > 0 && (
+              <RadialTimeChart 
+                data={history}
+                title="Budget Evolution Over Time"
+                color="#8E7CC3"
+                formatValue={formatLargeNumber}
+              />
+            )}
 
-            {/* CPI History */}
+            {/* Health & Education Flowing Multi-Chart */}
+            {healthHistory.length > 0 && educationHistory.length > 0 && (
+              <FlowingMultiChart 
+                healthData={healthHistory}
+                educationData={educationHistory}
+                title="Health vs Education Spending Trends"
+                formatValue={formatCurrency}
+              />
+            )}
+
+            {/* CPI History as Radial Chart */}
             {cpiHistory.length > 0 && (
-              <div>
-                <h3>CPI History</h3>
-                <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '15px' }}>
-                  {cpiHistory.map(row => (
-                    <div key={row.year} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #eee' }}>
-                      <span>{row.year}</span>
-                      <span style={{ fontWeight: 'bold' }}>{row.value}/100</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <RadialTimeChart 
+                data={cpiHistory}
+                title="Corruption Perception Over Time"
+                color="#A8C8E8"
+                formatValue={(value) => `${value}/100`}
+              />
             )}
+          </div>
 
-            {/* Health History */}
-            {healthHistory.length > 0 && (
-              <div>
-                <h3>Health Expenditure History</h3>
-                <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '15px' }}>
-                  {healthHistory.map(row => (
-                    <div key={row.year} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #eee' }}>
-                      <span>{row.year}</span>
-                      <span style={{ fontWeight: 'bold' }}>{formatCurrency(row.value)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Education History */}
-            {educationHistory.length > 0 && (
-              <div>
-                <h3>Education Expenditure History</h3>
-                <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '15px' }}>
-                  {educationHistory.map(row => (
-                    <div key={row.year} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #eee' }}>
-                      <span>{row.year}</span>
-                      <span style={{ fontWeight: 'bold' }}>{formatCurrency(row.value)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+          {/* Organic Footer Note */}
+          <div style={{
+            textAlign: 'center',
+            padding: '30px',
+            background: 'linear-gradient(135deg, #F4E4C1, #E8D5C4)',
+            borderRadius: '20px',
+            marginTop: '40px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+          }}>
+            <p style={{ 
+              color: '#8E7CC3', 
+              fontStyle: 'italic',
+              margin: 0,
+              fontSize: '1.1em'
+            }}>
+              "Data visualized through nature's lens reveals patterns hidden in traditional charts"
+            </p>
+            <small style={{ color: '#999', display: 'block', marginTop: '10px' }}>
+              Visualization style inspired by Federica Fragapane's organic data storytelling
+            </small>
           </div>
         </div>
       )}
