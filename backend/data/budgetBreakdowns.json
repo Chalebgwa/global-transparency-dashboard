@@ -1,0 +1,172 @@
+{
+  "BW": {
+    "2024": {
+      "year": 2024,
+      "total": 8000,
+      "currency": "USD",
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2024-03-15T00:00:00Z",
+      "sectors": {
+        "health": 1600,
+        "education": 2000,
+        "defense": 800,
+        "infrastructure": 1200,
+        "social_services": 1000,
+        "administration": 1000,
+        "other": 400
+      }
+    },
+    "2023": {
+      "year": 2023,
+      "total": 8100,
+      "currency": "USD",
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2023-03-15T00:00:00Z",
+      "sectors": {
+        "health": 1620,
+        "education": 2025,
+        "defense": 810,
+        "infrastructure": 1215,
+        "social_services": 1010,
+        "administration": 1010,
+        "other": 410
+      }
+    }
+  },
+  "ZA": {
+    "2024": {
+      "year": 2024,
+      "total": 120000,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2024-02-21T00:00:00Z",
+      "sectors": {
+        "health": 18000,
+        "education": 24000,
+        "defense": 12000,
+        "infrastructure": 20000,
+        "social_services": 25000,
+        "administration": 15000,
+        "other": 6000
+      }
+    },
+    "2023": {
+      "year": 2023,
+      "total": 119500,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2023-02-22T00:00:00Z",
+      "sectors": {
+        "health": 17925,
+        "education": 23900,
+        "defense": 11950,
+        "infrastructure": 19925,
+        "social_services": 24875,
+        "administration": 14925,
+        "other": 6000
+      }
+    }
+  },
+  "KE": {
+    "2024": {
+      "year": 2024,
+      "total": 15000,
+      "currency": "USD", 
+      "source": "National Treasury, Kenya",
+      "timestamp": "2024-06-13T00:00:00Z",
+      "sectors": {
+        "health": 2250,
+        "education": 3750,
+        "defense": 1500,
+        "infrastructure": 3000,
+        "social_services": 2250,
+        "administration": 1500,
+        "other": 750
+      }
+    },
+    "2023": {
+      "year": 2023,
+      "total": 14900,
+      "currency": "USD",
+      "source": "National Treasury, Kenya", 
+      "timestamp": "2023-06-14T00:00:00Z",
+      "sectors": {
+        "health": 2235,
+        "education": 3725,
+        "defense": 1490,
+        "infrastructure": 2980,
+        "social_services": 2235,
+        "administration": 1490,
+        "other": 745
+      }
+    }
+  },
+  "NG": {
+    "2024": {
+      "year": 2024,
+      "total": 30000,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2024-01-01T00:00:00Z",
+      "sectors": {
+        "health": 3000,
+        "education": 4500,
+        "defense": 6000,
+        "infrastructure": 7500,
+        "social_services": 3000,
+        "administration": 4500,
+        "other": 1500
+      }
+    },
+    "2023": {
+      "year": 2023,
+      "total": 29800,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2023-01-01T00:00:00Z",
+      "sectors": {
+        "health": 2980,
+        "education": 4470,
+        "defense": 5960,
+        "infrastructure": 7450,
+        "social_services": 2980,
+        "administration": 4470,
+        "other": 1490
+      }
+    }
+  },
+  "US": {
+    "2024": {
+      "year": 2024,
+      "total": 4000000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2024-10-01T00:00:00Z",
+      "sectors": {
+        "health": 1200000,
+        "education": 80000,
+        "defense": 800000,
+        "infrastructure": 120000,
+        "social_services": 1400000,
+        "administration": 200000,
+        "other": 200000
+      }
+    },
+    "2023": {
+      "year": 2023,
+      "total": 3950000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2023-10-01T00:00:00Z",
+      "sectors": {
+        "health": 1185000,
+        "education": 79000,
+        "defense": 790000,
+        "infrastructure": 118500,
+        "social_services": 1382500,
+        "administration": 197500,
+        "other": 197500
+      }
+    }
+  }
+}

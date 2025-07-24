@@ -1,0 +1,162 @@
+{
+  "BW": [
+    {
+      "year": 2020,
+      "value": 60,
+      "source": "Transparency International",
+      "timestamp": "2021-01-28T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 58,
+      "source": "Transparency International",
+      "timestamp": "2022-01-25T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 56,
+      "source": "Transparency International",
+      "timestamp": "2023-01-31T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 54,
+      "source": "Transparency International",
+      "timestamp": "2024-01-30T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 55,
+      "source": "Transparency International",
+      "timestamp": "2025-01-28T00:00:00Z"
+    }
+  ],
+  "ZA": [
+    {
+      "year": 2020,
+      "value": 44,
+      "source": "Transparency International",
+      "timestamp": "2021-01-28T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 44,
+      "source": "Transparency International",
+      "timestamp": "2022-01-25T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 43,
+      "source": "Transparency International",
+      "timestamp": "2023-01-31T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 43,
+      "source": "Transparency International",
+      "timestamp": "2024-01-30T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 44,
+      "source": "Transparency International",
+      "timestamp": "2025-01-28T00:00:00Z"
+    }
+  ],
+  "KE": [
+    {
+      "year": 2020,
+      "value": 31,
+      "source": "Transparency International",
+      "timestamp": "2021-01-28T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 30,
+      "source": "Transparency International",
+      "timestamp": "2022-01-25T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 32,
+      "source": "Transparency International",
+      "timestamp": "2023-01-31T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 31,
+      "source": "Transparency International",
+      "timestamp": "2024-01-30T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 32,
+      "source": "Transparency International",
+      "timestamp": "2025-01-28T00:00:00Z"
+    }
+  ],
+  "NG": [
+    {
+      "year": 2020,
+      "value": 25,
+      "source": "Transparency International",
+      "timestamp": "2021-01-28T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 24,
+      "source": "Transparency International",
+      "timestamp": "2022-01-25T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 24,
+      "source": "Transparency International",
+      "timestamp": "2023-01-31T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 25,
+      "source": "Transparency International",
+      "timestamp": "2024-01-30T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 25,
+      "source": "Transparency International",
+      "timestamp": "2025-01-28T00:00:00Z"
+    }
+  ],
+  "US": [
+    {
+      "year": 2020,
+      "value": 67,
+      "source": "Transparency International",
+      "timestamp": "2021-01-28T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 67,
+      "source": "Transparency International",
+      "timestamp": "2022-01-25T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 69,
+      "source": "Transparency International",
+      "timestamp": "2023-01-31T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 69,
+      "source": "Transparency International",
+      "timestamp": "2024-01-30T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 69,
+      "source": "Transparency International",
+      "timestamp": "2025-01-28T00:00:00Z"
+    }
+  ]
+}
