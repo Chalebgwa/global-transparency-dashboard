@@ -78,11 +78,11 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
       .attr('stroke', '#fff')
       .attr('stroke-width', 3);
 
-    // Animate progress
+    // Animate progress with more fluid easing
     const targetAngle = (value / maxValue) * 2 * Math.PI;
     progressPath.transition()
-      .duration(2000)
-      .ease(d3.easeElastic.period(0.3))
+      .duration(2500)
+      .ease(d3.easeBackOut.overshoot(1.2))
       .attrTween('d', d => {
         const interpolate = d3.interpolate(d.endAngle, targetAngle);
         return t => {
@@ -114,7 +114,7 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
       .attr('opacity', 0.3)
       .attr('transform', d => `rotate(${d.angle * 180 / Math.PI})`);
 
-    // Center circle
+    // Center circle with pulsing animation
     centerGroup.append('circle')
       .attr('r', 0)
       .attr('fill', color)
@@ -122,7 +122,32 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
       .transition()
       .duration(1500)
       .delay(500)
-      .attr('r', 15);
+      .ease(d3.easeBackOut)
+      .attr('r', 15)
+      .on('end', function() {
+        // Add continuous pulsing effect
+        d3.select(this)
+          .transition()
+          .duration(2000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', 18)
+          .transition()
+          .duration(2000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', 15)
+          .on('end', function repeat() {
+            d3.select(this)
+              .transition()
+              .duration(2000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', 18)
+              .transition()
+              .duration(2000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', 15)
+              .on('end', repeat);
+          });
+      });
 
     // Value text
     const valueText = centerGroup.append('text')
@@ -150,7 +175,7 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
       const x = centerX + elem.radius * Math.cos(elem.angle);
       const y = centerY + elem.radius * Math.sin(elem.angle);
       
-      svg.append('circle')
+      const floatingElement = svg.append('circle')
         .attr('cx', x)
         .attr('cy', y)
         .attr('r', 0)
@@ -159,7 +184,32 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
         .transition()
         .duration(1000)
         .delay(i * 200 + 1500)
-        .attr('r', elem.size);
+        .ease(d3.easeBackOut)
+        .attr('r', elem.size)
+        .on('end', function() {
+          // Add floating animation
+          d3.select(this)
+            .transition()
+            .duration(3000 + Math.random() * 2000)
+            .ease(d3.easeCubicInOut)
+            .attr('cy', y - 10 - Math.random() * 10)
+            .transition()
+            .duration(3000 + Math.random() * 2000)
+            .ease(d3.easeCubicInOut)
+            .attr('cy', y + 10 + Math.random() * 10)
+            .on('end', function repeat() {
+              d3.select(this)
+                .transition()
+                .duration(3000 + Math.random() * 2000)
+                .ease(d3.easeCubicInOut)
+                .attr('cy', y - 10 - Math.random() * 10)
+                .transition()
+                .duration(3000 + Math.random() * 2000)
+                .ease(d3.easeCubicInOut)
+                .attr('cy', y + 10 + Math.random() * 10)
+                .on('end', repeat);
+            });
+        });
     });
 
     // Title
@@ -184,15 +234,17 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
   }, [value, maxValue, title, color]);
 
   return (
-    <div style={{ 
+    <div className="chart-container" style={{ 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
       padding: '20px',
-      backgroundColor: '#fafafa',
-      borderRadius: '15px',
+      background: 'rgba(250, 250, 250, 0.9)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '20px',
       margin: '10px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
     }}>
       <svg ref={svgRef}></svg>
     </div>

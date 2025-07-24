@@ -57,15 +57,26 @@ const RadialTimeChart = ({ data, title, color = '#8E7CC3', formatValue }) => {
       };
     });
 
-    // Draw connecting spiral path
-    svg.append('path')
+    // Draw connecting spiral path with animation
+    const spiralPath = svg.append('path')
       .datum(points)
       .attr('d', line)
       .attr('fill', 'none')
       .attr('stroke', color)
       .attr('stroke-width', 2)
       .attr('opacity', 0.6)
-      .attr('stroke-dasharray', '5,5'); // Organic dashed line
+      .attr('stroke-dasharray', '5,5')
+      .attr('stroke-linecap', 'round');
+
+    // Animate the spiral path drawing
+    const spiralLength = spiralPath.node().getTotalLength();
+    spiralPath
+      .attr('stroke-dasharray', spiralLength + ' ' + spiralLength)
+      .attr('stroke-dashoffset', spiralLength)
+      .transition()
+      .duration(2000)
+      .ease(d3.easeQuadInOut)
+      .attr('stroke-dashoffset', 0);
 
     // Draw data points as organic circles
     const circles = svg.selectAll('.data-point')
@@ -82,16 +93,41 @@ const RadialTimeChart = ({ data, title, color = '#8E7CC3', formatValue }) => {
       .attr('cx', 2)
       .attr('cy', 2);
 
-    // Main circles with organic feel
+    // Main circles with organic feel and enhanced animations
     circles.append('circle')
       .attr('r', 0)
       .attr('fill', d => d.color)
       .attr('stroke', '#fff')
       .attr('stroke-width', 2)
       .transition()
-      .duration(1000)
-      .delay((d, i) => i * 100)
-      .attr('r', d => d.radius);
+      .duration(1200)
+      .delay((d, i) => i * 150)
+      .ease(d3.easeBackOut.overshoot(1.3))
+      .attr('r', d => d.radius)
+      .on('end', function(d, i) {
+        // Add breathing animation to each circle
+        d3.select(this)
+          .transition()
+          .duration(2000 + Math.random() * 1000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', d => d.radius * 1.2)
+          .transition()
+          .duration(2000 + Math.random() * 1000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', d => d.radius)
+          .on('end', function repeat() {
+            d3.select(this)
+              .transition()
+              .duration(2000 + Math.random() * 1000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', d => d.radius * 1.2)
+              .transition()
+              .duration(2000 + Math.random() * 1000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', d => d.radius)
+              .on('end', repeat);
+          });
+      });
 
     // Add year labels
     circles.append('text')
@@ -120,7 +156,7 @@ const RadialTimeChart = ({ data, title, color = '#8E7CC3', formatValue }) => {
       .delay((d, i) => i * 100 + 400)
       .attr('opacity', 0.8);
 
-    // Add center decoration - organic flower-like shape
+    // Add center decoration - organic flower-like shape with rotation
     const centerGroup = svg.append('g')
       .attr('transform', `translate(${centerX}, ${centerY})`);
 
@@ -129,7 +165,7 @@ const RadialTimeChart = ({ data, title, color = '#8E7CC3', formatValue }) => {
       radius: 15
     }));
 
-    centerGroup.selectAll('.petal')
+    const petals = centerGroup.selectAll('.petal')
       .data(petalData)
       .enter()
       .append('ellipse')
@@ -141,6 +177,30 @@ const RadialTimeChart = ({ data, title, color = '#8E7CC3', formatValue }) => {
       .attr('fill', color)
       .attr('opacity', 0.3)
       .attr('transform', d => `rotate(${d.angle * 180 / Math.PI})`);
+
+    // Add continuous rotation to petals
+    petals.transition()
+      .duration(20000)
+      .ease(d3.easeLinear)
+      .attrTween('transform', d => {
+        return function(t) {
+          const rotation = d.angle * 180 / Math.PI + (t * 360);
+          return `rotate(${rotation})`;
+        };
+      })
+      .on('end', function repeat() {
+        d3.select(this)
+          .transition()
+          .duration(20000)
+          .ease(d3.easeLinear)
+          .attrTween('transform', d => {
+            return function(t) {
+              const rotation = d.angle * 180 / Math.PI + (t * 360);
+              return `rotate(${rotation})`;
+            };
+          })
+          .on('end', repeat);
+      });
 
     centerGroup.append('circle')
       .attr('r', 8)
@@ -160,15 +220,17 @@ const RadialTimeChart = ({ data, title, color = '#8E7CC3', formatValue }) => {
   }, [data, title, color, formatValue]);
 
   return (
-    <div style={{ 
+    <div className="chart-container" style={{ 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
       padding: '20px',
-      backgroundColor: '#fafafa',
-      borderRadius: '15px',
+      background: 'rgba(250, 250, 250, 0.9)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '20px',
       margin: '10px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
     }}>
       <svg ref={svgRef}></svg>
     </div>
