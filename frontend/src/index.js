@@ -10,25 +10,30 @@ function App() {
   const [healthHistory, setHealthHistory] = useState([]);
   const [educationHistory, setEducationHistory] = useState([]);
 
+  const API_BASE_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080';
+
   useEffect(() => {
-    fetch('/api/v1/countries')
+    fetch(`${API_BASE_URL}/api/v1/countries`)
       .then(res => res.json())
       .then(setCountries)
-      .catch(() => setCountries([]));
+      .catch((error) => {
+        console.error('Error fetching countries:', error);
+        setCountries([]);
+      });
   }, []);
 
   const loadCountry = code => {
     // Load country details
-    fetch(`/api/v1/countries/${code}`)
+    fetch(`${API_BASE_URL}/api/v1/countries/${code}`)
       .then(res => res.json())
       .then(data => {
         setSelected(data);
         return Promise.all([
-          fetch(`/api/v1/countries/${code}/budget/history`).then(res => res.json()),
-          fetch(`/api/v1/countries/${code}/budget/breakdown`).then(res => res.json()),
-          fetch(`/api/v1/countries/${code}/cpi/history`).then(res => res.json()),
-          fetch(`/api/v1/countries/${code}/health/history`).then(res => res.json()),
-          fetch(`/api/v1/countries/${code}/education/history`).then(res => res.json())
+          fetch(`${API_BASE_URL}/api/v1/countries/${code}/budget/history`).then(res => res.json()),
+          fetch(`${API_BASE_URL}/api/v1/countries/${code}/budget/breakdown`).then(res => res.json()),
+          fetch(`${API_BASE_URL}/api/v1/countries/${code}/cpi/history`).then(res => res.json()),
+          fetch(`${API_BASE_URL}/api/v1/countries/${code}/health/history`).then(res => res.json()),
+          fetch(`${API_BASE_URL}/api/v1/countries/${code}/education/history`).then(res => res.json())
         ]);
       })
       .then(([budgetHistory, budgetBreakdown, cpiData, healthData, educationData]) => {
@@ -38,7 +43,8 @@ function App() {
         setHealthHistory(healthData);
         setEducationHistory(educationData);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error('Error loading country data:', error);
         setSelected(null);
         setHistory([]);
         setBreakdown(null);
