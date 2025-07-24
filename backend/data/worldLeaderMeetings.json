@@ -1,0 +1,186 @@
+{
+  "meetings": [
+    {
+      "id": "meeting_1",
+      "date": "2024-01-15",
+      "countries": ["US", "BW"],
+      "type": "bilateral",
+      "topic": "trade",
+      "location": "Washington DC",
+      "leaders": ["Biden", "Masisi"],
+      "description": "Trade partnership and democracy strengthening discussions"
+    },
+    {
+      "id": "meeting_2", 
+      "date": "2024-02-10",
+      "countries": ["US", "ZA"],
+      "type": "bilateral",
+      "topic": "security",
+      "location": "Cape Town",
+      "leaders": ["Biden", "Ramaphosa"],
+      "description": "Regional security cooperation and investment talks"
+    },
+    {
+      "id": "meeting_3",
+      "date": "2024-03-05",
+      "countries": ["ZA", "NG"],
+      "type": "bilateral", 
+      "topic": "energy",
+      "location": "Lagos",
+      "leaders": ["Ramaphosa", "Tinubu"],
+      "description": "African energy cooperation and infrastructure development"
+    },
+    {
+      "id": "meeting_4",
+      "date": "2024-03-20",
+      "countries": ["BW", "ZA", "KE"],
+      "type": "multilateral",
+      "topic": "climate",
+      "location": "Nairobi",
+      "leaders": ["Masisi", "Ramaphosa", "Ruto"],
+      "description": "African climate action summit"
+    },
+    {
+      "id": "meeting_5",
+      "date": "2024-04-12",
+      "countries": ["US", "KE"],
+      "type": "bilateral",
+      "topic": "technology",
+      "location": "Silicon Valley",
+      "leaders": ["Biden", "Ruto"],
+      "description": "Technology partnership and digital transformation"
+    },
+    {
+      "id": "meeting_6",
+      "date": "2024-04-25",
+      "countries": ["NG", "US"],
+      "type": "bilateral",
+      "topic": "oil",
+      "location": "Houston",
+      "leaders": ["Tinubu", "Biden"],
+      "description": "Energy cooperation and sustainable development"
+    },
+    {
+      "id": "meeting_7",
+      "date": "2024-05-08",
+      "countries": ["BW", "KE"],
+      "type": "bilateral",
+      "topic": "wildlife",
+      "location": "Gaborone",
+      "leaders": ["Masisi", "Ruto"],
+      "description": "Wildlife conservation and eco-tourism partnership"
+    },
+    {
+      "id": "meeting_8",
+      "date": "2024-06-15",
+      "countries": ["ZA", "US", "NG", "KE"],
+      "type": "multilateral",
+      "topic": "trade",
+      "location": "New York",
+      "leaders": ["Ramaphosa", "Biden", "Tinubu", "Ruto"],
+      "description": "Africa-US trade forum and AGOA discussions"
+    },
+    {
+      "id": "meeting_9",
+      "date": "2024-07-01",
+      "countries": ["BW", "US"],
+      "type": "bilateral",
+      "topic": "democracy",
+      "location": "Gaborone", 
+      "leaders": ["Masisi", "Biden"],
+      "description": "Democracy strengthening and governance reforms"
+    },
+    {
+      "id": "meeting_10",
+      "date": "2024-08-20",
+      "countries": ["KE", "NG"],
+      "type": "bilateral",
+      "topic": "agriculture",
+      "location": "Abuja",
+      "leaders": ["Ruto", "Tinubu"],
+      "description": "Agricultural cooperation and food security"
+    }
+  ],
+  "relationships": {
+    "US-BW": {
+      "meeting_count": 3,
+      "last_meeting": "2024-07-01",
+      "relationship_strength": 0.85,
+      "common_topics": ["trade", "democracy"],
+      "bilateral_meetings": 3,
+      "multilateral_meetings": 0
+    },
+    "US-ZA": {
+      "meeting_count": 2,
+      "last_meeting": "2024-06-15", 
+      "relationship_strength": 0.75,
+      "common_topics": ["security", "trade"],
+      "bilateral_meetings": 1,
+      "multilateral_meetings": 1
+    },
+    "US-KE": {
+      "meeting_count": 2,
+      "last_meeting": "2024-06-15",
+      "relationship_strength": 0.70,
+      "common_topics": ["technology", "trade"],
+      "bilateral_meetings": 1,
+      "multilateral_meetings": 1
+    },
+    "US-NG": {
+      "meeting_count": 2,
+      "last_meeting": "2024-06-15",
+      "relationship_strength": 0.65,
+      "common_topics": ["oil", "trade"],
+      "bilateral_meetings": 1,
+      "multilateral_meetings": 1
+    },
+    "ZA-NG": {
+      "meeting_count": 2,
+      "last_meeting": "2024-06-15",
+      "relationship_strength": 0.60,
+      "common_topics": ["energy", "trade"],
+      "bilateral_meetings": 1,
+      "multilateral_meetings": 1
+    },
+    "ZA-KE": {
+      "meeting_count": 2,
+      "last_meeting": "2024-06-15",
+      "relationship_strength": 0.55,
+      "common_topics": ["climate", "trade"],
+      "bilateral_meetings": 0,
+      "multilateral_meetings": 2
+    },
+    "ZA-BW": {
+      "meeting_count": 1,
+      "last_meeting": "2024-03-20",
+      "relationship_strength": 0.50,
+      "common_topics": ["climate"],
+      "bilateral_meetings": 0,
+      "multilateral_meetings": 1
+    },
+    "BW-KE": {
+      "meeting_count": 2,
+      "last_meeting": "2024-05-08",
+      "relationship_strength": 0.60,
+      "common_topics": ["wildlife", "climate"],
+      "bilateral_meetings": 1,
+      "multilateral_meetings": 1
+    },
+    "KE-NG": {
+      "meeting_count": 2,
+      "last_meeting": "2024-08-20",
+      "relationship_strength": 0.55,
+      "common_topics": ["agriculture", "trade"],
+      "bilateral_meetings": 1,
+      "multilateral_meetings": 1
+    },
+    "BW-NG": {
+      "meeting_count": 0,
+      "last_meeting": null,
+      "relationship_strength": 0.10,
+      "common_topics": [],
+      "bilateral_meetings": 0,
+      "multilateral_meetings": 0
+    }
+  }
+}

@@ -6,6 +6,7 @@ const budgetBreakdowns = require('../data/budgetBreakdowns.json');
 const cpiHistory = require('../data/cpiHistory.json');
 const healthHistory = require('../data/healthHistory.json');
 const educationHistory = require('../data/educationHistory.json');
+const worldLeaderMeetings = require('../data/worldLeaderMeetings.json');
 
 // Helper function to validate country code
 function validateCountryCode(code) {
@@ -485,6 +486,73 @@ router.get('/:code/education/history', (req, res) => {
   const { start_year, end_year } = req.query;
   const filteredHistory = filterByYearRange(history, start_year, end_year);
   res.json(filteredHistory);
+});
+
+/**
+ * @swagger
+ * /api/v1/countries/{code}/meetings:
+ *   get:
+ *     summary: Get meetings involving a specific country
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ISO country code
+ *     responses:
+ *       200:
+ *         description: Array of meetings involving the country
+ *       404:
+ *         description: Country not found
+ */
+router.get('/:code/meetings', (req, res) => {
+  const code = req.params.code.toUpperCase();
+  const country = validateCountryCode(code);
+  if (!country) {
+    return res.status(404).json({ error: 'Country not found' });
+  }
+  
+  const countryMeetings = worldLeaderMeetings.meetings.filter(meeting =>
+    meeting.countries.includes(code)
+  );
+  
+  res.json(countryMeetings);
+});
+
+/**
+ * @swagger
+ * /api/v1/countries/{code}/relationships:
+ *   get:
+ *     summary: Get relationships for a specific country
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ISO country code
+ *     responses:
+ *       200:
+ *         description: Relationships involving the country
+ *       404:
+ *         description: Country not found
+ */
+router.get('/:code/relationships', (req, res) => {
+  const code = req.params.code.toUpperCase();
+  const country = validateCountryCode(code);
+  if (!country) {
+    return res.status(404).json({ error: 'Country not found' });
+  }
+  
+  const countryRelationships = {};
+  Object.keys(worldLeaderMeetings.relationships).forEach(relationshipKey => {
+    if (relationshipKey.includes(code)) {
+      countryRelationships[relationshipKey] = worldLeaderMeetings.relationships[relationshipKey];
+    }
+  });
+  
+  res.json(countryRelationships);
 });
 
 module.exports = router;
