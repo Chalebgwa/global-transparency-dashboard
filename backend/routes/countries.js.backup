@@ -52,6 +52,23 @@ router.get('/', (req, res) => {
  *     responses:
  *       200:
  *         description: Country object with all current metrics
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 budget:
+ *                   type: number
+ *                 cpi:
+ *                   type: number
+ *                 health_exp:
+ *                   type: number
+ *                 education_exp:
+ *                   type: number
  *       404:
  *         description: Country not found
  */
@@ -64,6 +81,7 @@ router.get('/:code', (req, res) => {
   res.json(country);
 });
 
+// individual metric endpoints
 /**
  * @swagger
  * /api/v1/countries/{code}/budget:
@@ -79,6 +97,22 @@ router.get('/:code', (req, res) => {
  *     responses:
  *       200:
  *         description: Budget information with metadata
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 year:
+ *                   type: number
+ *                 value:
+ *                   type: number
+ *                 currency:
+ *                   type: string
+ *                 source:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
  *       404:
  *         description: Country not found
  */
@@ -125,6 +159,24 @@ router.get('/:code/budget', (req, res) => {
  *     responses:
  *       200:
  *         description: Array of yearly budget data with metadata
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   year:
+ *                     type: number
+ *                   value:
+ *                     type: number
+ *                   currency:
+ *                     type: string
+ *                   source:
+ *                     type: string
+ *                   timestamp:
+ *                     type: string
+ *                     format: date-time
  *       404:
  *         description: Country not found
  */
@@ -165,6 +217,39 @@ router.get('/:code/budget/history', (req, res) => {
  *     responses:
  *       200:
  *         description: Budget breakdown by sector with metadata
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 year:
+ *                   type: number
+ *                 total:
+ *                   type: number
+ *                 currency:
+ *                   type: string
+ *                 source:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *                 sectors:
+ *                   type: object
+ *                   properties:
+ *                     health:
+ *                       type: number
+ *                     education:
+ *                       type: number
+ *                     defense:
+ *                       type: number
+ *                     infrastructure:
+ *                       type: number
+ *                     social_services:
+ *                       type: number
+ *                     administration:
+ *                       type: number
+ *                     other:
+ *                       type: number
  *       404:
  *         description: Country or breakdown data not found
  */
@@ -245,8 +330,6 @@ router.get('/:code/budget/breakdown/history', (req, res) => {
   data.sort((a, b) => a.year - b.year);
   
   res.json(data);
-});
-
 /**
  * @swagger
  * /api/v1/countries/{code}/cpi:
@@ -262,6 +345,20 @@ router.get('/:code/budget/breakdown/history', (req, res) => {
  *     responses:
  *       200:
  *         description: CPI score with metadata
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 year:
+ *                   type: number
+ *                 value:
+ *                   type: number
+ *                 source:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
  *       404:
  *         description: Country not found
  */
@@ -342,6 +439,22 @@ router.get('/:code/cpi/history', (req, res) => {
  *     responses:
  *       200:
  *         description: Health expenditure per capita with metadata
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 year:
+ *                   type: number
+ *                 value:
+ *                   type: number
+ *                 currency:
+ *                   type: string
+ *                 source:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
  *       404:
  *         description: Country not found
  */
@@ -422,6 +535,22 @@ router.get('/:code/health/history', (req, res) => {
  *     responses:
  *       200:
  *         description: Education expenditure per capita with metadata
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 year:
+ *                   type: number
+ *                 value:
+ *                   type: number
+ *                 currency:
+ *                   type: string
+ *                 source:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
  *       404:
  *         description: Country not found
  */

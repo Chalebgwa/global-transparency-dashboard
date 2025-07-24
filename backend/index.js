@@ -1,10 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 const countriesRouter = require('./routes/countries');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
+
+// Middleware
+app.use(cors());
+app.use(express.json());
 
 /**
  * @swagger

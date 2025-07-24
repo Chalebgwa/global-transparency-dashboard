@@ -1,0 +1,187 @@
+{
+  "BW": [
+    {
+      "year": 2020,
+      "value": 285,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2021-12-15T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 290,
+      "currency": "USD", 
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2022-12-15T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 295,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2023-12-15T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 298,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2024-12-15T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 300,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2025-12-15T00:00:00Z"
+    }
+  ],
+  "ZA": [
+    {
+      "year": 2020,
+      "value": 470,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2021-12-15T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 480,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2022-12-15T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 485,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2023-12-15T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 492,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2024-12-15T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 500,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2025-12-15T00:00:00Z"
+    }
+  ],
+  "KE": [
+    {
+      "year": 2020,
+      "value": 140,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2021-12-15T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 142,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2022-12-15T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 145,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2023-12-15T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 147,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2024-12-15T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 150,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2025-12-15T00:00:00Z"
+    }
+  ],
+  "NG": [
+    {
+      "year": 2020,
+      "value": 95,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2021-12-15T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 97,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2022-12-15T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 98,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2023-12-15T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 99,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2024-12-15T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 100,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2025-12-15T00:00:00Z"
+    }
+  ],
+  "US": [
+    {
+      "year": 2020,
+      "value": 9800,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2021-12-15T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 9850,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2022-12-15T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 9900,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2023-12-15T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 9950,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2024-12-15T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 10000,
+      "currency": "USD",
+      "source": "World Bank Health Nutrition and Population Statistics",
+      "timestamp": "2025-12-15T00:00:00Z"
+    }
+  ]
+}

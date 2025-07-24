@@ -1,37 +1,187 @@
 {
   "BW": [
-    {"year": 2020, "value": 7500},
-    {"year": 2021, "value": 7700},
-    {"year": 2022, "value": 7900},
-    {"year": 2023, "value": 8100},
-    {"year": 2024, "value": 8000}
+    {
+      "year": 2020,
+      "value": 7500,
+      "currency": "USD",
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2021-03-15T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 7700,
+      "currency": "USD", 
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2022-03-15T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 7900,
+      "currency": "USD",
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2023-03-15T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 8100,
+      "currency": "USD",
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2024-03-15T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 8000,
+      "currency": "USD",
+      "source": "Ministry of Finance and Economic Development, Botswana",
+      "timestamp": "2025-03-15T00:00:00Z"
+    }
   ],
   "ZA": [
-    {"year": 2020, "value": 115000},
-    {"year": 2021, "value": 117000},
-    {"year": 2022, "value": 118500},
-    {"year": 2023, "value": 119500},
-    {"year": 2024, "value": 120000}
+    {
+      "year": 2020,
+      "value": 115000,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2021-02-24T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 117000,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2022-02-23T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 118500,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2023-02-22T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 119500,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2024-02-21T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 120000,
+      "currency": "USD",
+      "source": "National Treasury, South Africa",
+      "timestamp": "2025-02-21T00:00:00Z"
+    }
   ],
   "KE": [
-    {"year": 2020, "value": 14000},
-    {"year": 2021, "value": 14500},
-    {"year": 2022, "value": 14700},
-    {"year": 2023, "value": 14900},
-    {"year": 2024, "value": 15000}
+    {
+      "year": 2020,
+      "value": 14000,
+      "currency": "USD",
+      "source": "National Treasury, Kenya",
+      "timestamp": "2021-06-30T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 14500,
+      "currency": "USD",
+      "source": "National Treasury, Kenya",
+      "timestamp": "2022-06-30T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 14700,
+      "currency": "USD",
+      "source": "National Treasury, Kenya",
+      "timestamp": "2023-06-30T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 14900,
+      "currency": "USD",
+      "source": "National Treasury, Kenya",
+      "timestamp": "2024-06-13T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 15000,
+      "currency": "USD",
+      "source": "National Treasury, Kenya",
+      "timestamp": "2025-06-13T00:00:00Z"
+    }
   ],
   "NG": [
-    {"year": 2020, "value": 28000},
-    {"year": 2021, "value": 29000},
-    {"year": 2022, "value": 29500},
-    {"year": 2023, "value": 29800},
-    {"year": 2024, "value": 30000}
+    {
+      "year": 2020,
+      "value": 28000,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2021-01-01T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 29000,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2022-01-01T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 29500,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2023-01-01T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 29800,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2024-01-01T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 30000,
+      "currency": "USD",
+      "source": "Budget Office of the Federation, Nigeria",
+      "timestamp": "2025-01-01T00:00:00Z"
+    }
   ],
   "US": [
-    {"year": 2020, "value": 3800000},
-    {"year": 2021, "value": 3850000},
-    {"year": 2022, "value": 3900000},
-    {"year": 2023, "value": 3950000},
-    {"year": 2024, "value": 4000000}
+    {
+      "year": 2020,
+      "value": 3800000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2021-10-01T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "value": 3850000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2022-10-01T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "value": 3900000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2023-10-01T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "value": 3950000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2024-10-01T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "value": 4000000,
+      "currency": "USD",
+      "source": "Congressional Budget Office, United States",
+      "timestamp": "2025-10-01T00:00:00Z"
+    }
   ]
 }
