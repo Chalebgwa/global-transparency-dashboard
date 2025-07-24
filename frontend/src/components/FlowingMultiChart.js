@@ -82,7 +82,7 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .y1(d => yScale(d.value))
       .curve(d3.curveCatmullRom.alpha(0.5));
 
-    // Draw organic flowing areas
+    // Draw organic flowing areas with enhanced animation
     g.append('path')
       .datum(healthData)
       .attr('class', 'health-area')
@@ -90,7 +90,8 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .attr('fill', 'url(#healthGradient)')
       .attr('opacity', 0)
       .transition()
-      .duration(1500)
+      .duration(2000)
+      .ease(d3.easeQuadOut)
       .attr('opacity', 1);
 
     g.append('path')
@@ -100,8 +101,9 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .attr('fill', 'url(#educationGradient)')
       .attr('opacity', 0)
       .transition()
-      .duration(1500)
-      .delay(300)
+      .duration(2000)
+      .delay(500)
+      .ease(d3.easeQuadOut)
       .attr('opacity', 1);
 
     // Draw flowing lines
@@ -133,7 +135,7 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .attr('stroke-dasharray', `${healthPathLength},${healthPathLength}`)
       .attr('stroke-dashoffset', healthPathLength)
       .transition()
-      .duration(2000)
+      .duration(2500)
       .ease(d3.easeQuadInOut)
       .attr('stroke-dashoffset', 0);
 
@@ -141,8 +143,8 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .attr('stroke-dasharray', `${educationPathLength},${educationPathLength}`)
       .attr('stroke-dashoffset', educationPathLength)
       .transition()
-      .duration(2000)
-      .delay(500)
+      .duration(2500)
+      .delay(700)
       .ease(d3.easeQuadInOut)
       .attr('stroke-dashoffset', 0);
 
@@ -160,9 +162,34 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .attr('stroke', '#fff')
       .attr('stroke-width', 3)
       .transition()
-      .duration(800)
-      .delay((d, i) => i * 200 + 1000)
-      .attr('r', 6);
+      .duration(1000)
+      .delay((d, i) => i * 250 + 1200)
+      .ease(d3.easeBackOut.overshoot(1.2))
+      .attr('r', 6)
+      .on('end', function(d, i) {
+        // Add gentle floating animation
+        d3.select(this)
+          .transition()
+          .duration(2000 + Math.random() * 1000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', 8)
+          .transition()
+          .duration(2000 + Math.random() * 1000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', 6)
+          .on('end', function repeat() {
+            d3.select(this)
+              .transition()
+              .duration(2000 + Math.random() * 1000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', 8)
+              .transition()
+              .duration(2000 + Math.random() * 1000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', 6)
+              .on('end', repeat);
+          });
+      });
 
     // Add floating organic elements around health points
     healthPoints.append('circle')
@@ -189,9 +216,34 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
       .attr('stroke', '#fff')
       .attr('stroke-width', 3)
       .transition()
-      .duration(800)
-      .delay((d, i) => i * 200 + 1500)
-      .attr('r', 6);
+      .duration(1000)
+      .delay((d, i) => i * 250 + 1800)
+      .ease(d3.easeBackOut.overshoot(1.2))
+      .attr('r', 6)
+      .on('end', function(d, i) {
+        // Add gentle floating animation
+        d3.select(this)
+          .transition()
+          .duration(2000 + Math.random() * 1000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', 8)
+          .transition()
+          .duration(2000 + Math.random() * 1000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', 6)
+          .on('end', function repeat() {
+            d3.select(this)
+              .transition()
+              .duration(2000 + Math.random() * 1000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', 8)
+              .transition()
+              .duration(2000 + Math.random() * 1000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', 6)
+              .on('end', repeat);
+          });
+      });
 
     // Add floating organic elements around education points
     educationPoints.append('circle')
@@ -292,15 +344,17 @@ const FlowingMultiChart = ({ healthData, educationData, title, formatValue }) =>
   }, [healthData, educationData, title, formatValue]);
 
   return (
-    <div style={{ 
+    <div className="chart-container" style={{ 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
       padding: '20px',
-      backgroundColor: '#fafafa',
-      borderRadius: '15px',
+      background: 'rgba(250, 250, 250, 0.9)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '20px',
       margin: '10px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
     }}>
       <svg ref={svgRef}></svg>
     </div>

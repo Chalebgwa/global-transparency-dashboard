@@ -4,6 +4,8 @@ import RadialTimeChart from './components/RadialTimeChart';
 import OrganicBubbleChart from './components/OrganicBubbleChart';
 import CircularProgress from './components/CircularProgress';
 import FlowingMultiChart from './components/FlowingMultiChart';
+import FloatingParticles from './components/FloatingParticles';
+import './styles/animations.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -77,26 +79,36 @@ function App() {
   };
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      fontFamily: 'Georgia, serif',
-      backgroundColor: '#f8f6f3',
-      minHeight: '100vh'
-    }}>
+    <>
+      <FloatingParticles count={25} />
       <div style={{ 
+        padding: '20px', 
+        fontFamily: 'Georgia, serif',
+        background: 'linear-gradient(135deg, #f8f6f3 0%, #f0e8e0 50%, #e8f0f8 100%)',
+        backgroundSize: '300% 300%',
+        animation: 'smoothGradientShift 20s ease infinite',
+        minHeight: '100vh',
+        position: 'relative'
+      }}>
+      <div className="animated-container" style={{ 
         textAlign: 'center', 
         marginBottom: '40px',
-        background: 'linear-gradient(135deg, #E8D5C4, #F4E4C1)',
+        background: 'linear-gradient(135deg, #E8D5C4, #F4E4C1, #E8A598)',
+        backgroundSize: '200% 200%',
+        animation: 'smoothGradientShift 12s ease infinite',
         padding: '30px',
-        borderRadius: '20px',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
+        borderRadius: '25px',
+        boxShadow: '0 12px 32px rgba(0,0,0,0.15), 0 0 40px rgba(142, 124, 195, 0.1)',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.3)'
       }}>
-        <h1 style={{ 
+        <h1 className="animated-title" style={{ 
           color: '#8E7CC3', 
           margin: '0 0 10px 0',
           fontSize: '2.5em',
           fontWeight: '300',
-          letterSpacing: '2px'
+          letterSpacing: '2px',
+          textShadow: '0 2px 10px rgba(142, 124, 195, 0.2)'
         }}>
           Global Transparency Dashboard
         </h1>
@@ -110,25 +122,27 @@ function App() {
         </p>
       </div>
       
-      <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+      <div className="animated-container" style={{ marginBottom: '40px', textAlign: 'center' }}>
         <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Select a Country</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center' }}>
-          {countries.map(c => (
+          {countries.map((c, index) => (
             <button 
               key={c.code}
               onClick={() => loadCountry(c.code)}
+              className={`smooth-button stagger-fade-in`}
               style={{
                 padding: '15px 25px',
-                backgroundColor: selected?.code === c.code ? '#8E7CC3' : '#fff',
+                backgroundColor: selected?.code === c.code ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
                 color: selected?.code === c.code ? 'white' : '#333',
-                border: `3px solid ${selected?.code === c.code ? '#8E7CC3' : '#E8D5C4'}`,
+                border: `3px solid ${selected?.code === c.code ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
                 borderRadius: '25px',
                 cursor: 'pointer',
                 fontSize: '14px',
                 fontWeight: '500',
-                transition: 'all 0.3s ease',
-                boxShadow: selected?.code === c.code ? '0 6px 16px rgba(142, 124, 195, 0.3)' : '0 2px 8px rgba(0,0,0,0.1)',
-                transform: selected?.code === c.code ? 'translateY(-2px)' : 'none'
+                animationDelay: `${index * 0.1}s`,
+                boxShadow: selected?.code === c.code 
+                  ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
+                  : '0 4px 12px rgba(0,0,0,0.1)',
               }}
             >
               {c.name}
@@ -150,25 +164,27 @@ function App() {
           </h2>
           
           {/* Organic Key Metrics with Circular Progress */}
-          <div style={{ 
+          <div className="animated-container" style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
             gap: '20px', 
             marginBottom: '50px',
             justifyItems: 'center'
           }}>
-            <CircularProgress 
-              value={selected.cpi} 
-              maxValue={100}
-              title="Corruption Perception"
-              color="#A8C8E8"
-            />
-            <div style={{
-              background: 'linear-gradient(135deg, #E8A598, #F0D0C0)',
-              borderRadius: '20px',
+            <div className="stagger-fade-in">
+              <CircularProgress 
+                value={selected.cpi} 
+                maxValue={100}
+                title="Corruption Perception"
+                color="#A8C8E8"
+              />
+            </div>
+            <div className="metric-card stagger-fade-in" style={{
+              '--card-color-1': '#E8A598',
+              '--card-color-2': '#F0D0C0',
+              borderRadius: '25px',
               padding: '30px',
               textAlign: 'center',
-              boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
               minWidth: '200px'
             }}>
               <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Total Budget</h3>
@@ -177,12 +193,12 @@ function App() {
               </p>
               <small style={{ color: 'rgba(255,255,255,0.8)' }}>Current Year</small>
             </div>
-            <div style={{
-              background: 'linear-gradient(135deg, #E8B4B8, #F4E4C1)',
-              borderRadius: '20px',
+            <div className="metric-card stagger-fade-in" style={{
+              '--card-color-1': '#E8B4B8',
+              '--card-color-2': '#F4E4C1',
+              borderRadius: '25px',
               padding: '30px',
               textAlign: 'center',
-              boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
               minWidth: '200px'
             }}>
               <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Health Per Capita</h3>
@@ -191,12 +207,12 @@ function App() {
               </p>
               <small style={{ color: 'rgba(255,255,255,0.8)' }}>Annual Expenditure</small>
             </div>
-            <div style={{
-              background: 'linear-gradient(135deg, #A8C8A8, #C0E0C0)',
-              borderRadius: '20px',
+            <div className="metric-card stagger-fade-in" style={{
+              '--card-color-1': '#A8C8A8',
+              '--card-color-2': '#C0E0C0',
+              borderRadius: '25px',
               padding: '30px',
               textAlign: 'center',
-              boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
               minWidth: '200px'
             }}>
               <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Education Per Capita</h3>
@@ -208,7 +224,7 @@ function App() {
           </div>
 
           {/* Fragapane-style Charts */}
-          <div style={{ 
+          <div className="animated-container" style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
             gap: '30px',
@@ -216,52 +232,62 @@ function App() {
           }}>
             {/* Budget Breakdown as Organic Bubble Chart */}
             {breakdown && (
-              <OrganicBubbleChart 
-                data={breakdown}
-                title="Budget Allocation by Sector"
-                formatValue={formatLargeNumber}
-              />
+              <div className="chart-container stagger-fade-in">
+                <OrganicBubbleChart 
+                  data={breakdown}
+                  title="Budget Allocation by Sector"
+                  formatValue={formatLargeNumber}
+                />
+              </div>
             )}
 
             {/* Budget History as Radial Time Chart */}
             {history.length > 0 && (
-              <RadialTimeChart 
-                data={history}
-                title="Budget Evolution Over Time"
-                color="#8E7CC3"
-                formatValue={formatLargeNumber}
-              />
+              <div className="chart-container stagger-fade-in">
+                <RadialTimeChart 
+                  data={history}
+                  title="Budget Evolution Over Time"
+                  color="#8E7CC3"
+                  formatValue={formatLargeNumber}
+                />
+              </div>
             )}
 
             {/* Health & Education Flowing Multi-Chart */}
             {healthHistory.length > 0 && educationHistory.length > 0 && (
-              <FlowingMultiChart 
-                healthData={healthHistory}
-                educationData={educationHistory}
-                title="Health vs Education Spending Trends"
-                formatValue={formatCurrency}
-              />
+              <div className="chart-container stagger-fade-in">
+                <FlowingMultiChart 
+                  healthData={healthHistory}
+                  educationData={educationHistory}
+                  title="Health vs Education Spending Trends"
+                  formatValue={formatCurrency}
+                />
+              </div>
             )}
 
             {/* CPI History as Radial Chart */}
             {cpiHistory.length > 0 && (
-              <RadialTimeChart 
-                data={cpiHistory}
-                title="Corruption Perception Over Time"
-                color="#A8C8E8"
-                formatValue={(value) => `${value}/100`}
-              />
+              <div className="chart-container stagger-fade-in">
+                <RadialTimeChart 
+                  data={cpiHistory}
+                  title="Corruption Perception Over Time"
+                  color="#A8C8E8"
+                  formatValue={(value) => `${value}/100`}
+                />
+              </div>
             )}
           </div>
 
           {/* Organic Footer Note */}
-          <div style={{
+          <div className="animated-container glass-effect" style={{
             textAlign: 'center',
             padding: '30px',
-            background: 'linear-gradient(135deg, #F4E4C1, #E8D5C4)',
-            borderRadius: '20px',
+            background: 'linear-gradient(135deg, rgba(244, 228, 193, 0.8), rgba(232, 213, 196, 0.8))',
+            borderRadius: '25px',
             marginTop: '40px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
           }}>
             <p style={{ 
               color: '#8E7CC3', 
@@ -278,6 +304,7 @@ function App() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

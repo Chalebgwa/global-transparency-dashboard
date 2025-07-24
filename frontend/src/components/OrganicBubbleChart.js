@@ -118,20 +118,47 @@ const OrganicBubbleChart = ({ data, title, formatValue }) => {
       .attr('fill', '#fff')
       .attr('opacity', 0.3);
 
-    // Animate entrance
+    // Animate entrance with more dynamic effects
     circles.transition()
-      .duration(1200)
-      .delay((d, i) => i * 150)
-      .attr('r', d => sizeScale(d.value));
+      .duration(1500)
+      .delay((d, i) => i * 200)
+      .ease(d3.easeBackOut.overshoot(1.4))
+      .attr('r', d => sizeScale(d.value))
+      .on('end', function(d, i) {
+        // Add gentle pulsing animation to bubbles
+        d3.select(this)
+          .transition()
+          .duration(3000 + Math.random() * 2000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', d => sizeScale(d.value) * 1.1)
+          .transition()
+          .duration(3000 + Math.random() * 2000)
+          .ease(d3.easeCubicInOut)
+          .attr('r', d => sizeScale(d.value))
+          .on('end', function repeat() {
+            d3.select(this)
+              .transition()
+              .duration(3000 + Math.random() * 2000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', d => sizeScale(d.value) * 1.1)
+              .transition()
+              .duration(3000 + Math.random() * 2000)
+              .ease(d3.easeCubicInOut)
+              .attr('r', d => sizeScale(d.value))
+              .on('end', repeat);
+          });
+      });
 
     labels.transition()
-      .duration(800)
-      .delay((d, i) => i * 150 + 600)
+      .duration(1000)
+      .delay((d, i) => i * 200 + 800)
+      .ease(d3.easeBackOut)
       .attr('opacity', 1);
 
     valueLabels.transition()
-      .duration(800)
-      .delay((d, i) => i * 150 + 800)
+      .duration(1000)
+      .delay((d, i) => i * 200 + 1000)
+      .ease(d3.easeBackOut)
       .attr('opacity', 0.8);
 
     // Update positions during simulation
@@ -168,7 +195,8 @@ const OrganicBubbleChart = ({ data, title, formatValue }) => {
         .attr('fill', 'none')
         .attr('opacity', 0)
         .transition()
-        .duration(1000)
+        .duration(1500)
+        .ease(d3.easeQuadOut)
         .attr('opacity', 0.3);
     });
 
@@ -194,15 +222,17 @@ const OrganicBubbleChart = ({ data, title, formatValue }) => {
   }, [data, title, formatValue]);
 
   return (
-    <div style={{ 
+    <div className="chart-container" style={{ 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
       padding: '20px',
-      backgroundColor: '#fafafa',
-      borderRadius: '15px',
+      background: 'rgba(250, 250, 250, 0.9)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '20px',
       margin: '10px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
     }}>
       <svg ref={svgRef}></svg>
     </div>
