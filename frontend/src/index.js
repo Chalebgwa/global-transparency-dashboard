@@ -5,6 +5,7 @@ import OrganicBubbleChart from './components/OrganicBubbleChart';
 import CircularProgress from './components/CircularProgress';
 import FlowingMultiChart from './components/FlowingMultiChart';
 import FloatingParticles from './components/FloatingParticles';
+import CountryNetworkChart from './components/CountryNetworkChart';
 import './styles/animations.css';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
   const [cpiHistory, setCpiHistory] = useState([]);
   const [healthHistory, setHealthHistory] = useState([]);
   const [educationHistory, setEducationHistory] = useState([]);
+  const [meetings, setMeetings] = useState([]);
+  const [relationships, setRelationships] = useState({});
+  const [showNetwork, setShowNetwork] = useState(false);
 
   const API_BASE_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080';
 
@@ -26,6 +30,21 @@ function App() {
         console.error('Error fetching countries:', error);
         setCountries([]);
       });
+
+    // Load meetings and relationships data
+    Promise.all([
+      fetch(`${API_BASE_URL}/api/v1/meetings`).then(res => res.json()),
+      fetch(`${API_BASE_URL}/api/v1/relationships`).then(res => res.json())
+    ])
+    .then(([meetingsData, relationshipsData]) => {
+      setMeetings(meetingsData);
+      setRelationships(relationshipsData);
+    })
+    .catch((error) => {
+      console.error('Error fetching meetings/relationships:', error);
+      setMeetings([]);
+      setRelationships({});
+    });
   }, []);
 
   const loadCountry = code => {
@@ -123,33 +142,92 @@ function App() {
       </div>
       
       <div className="animated-container" style={{ marginBottom: '40px', textAlign: 'center' }}>
-        <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Select a Country</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center' }}>
-          {countries.map((c, index) => (
-            <button 
-              key={c.code}
-              onClick={() => loadCountry(c.code)}
-              className={`smooth-button stagger-fade-in`}
-              style={{
-                padding: '15px 25px',
-                backgroundColor: selected?.code === c.code ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
-                color: selected?.code === c.code ? 'white' : '#333',
-                border: `3px solid ${selected?.code === c.code ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
-                borderRadius: '25px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: '500',
-                animationDelay: `${index * 0.1}s`,
-                boxShadow: selected?.code === c.code 
-                  ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
-                  : '0 4px 12px rgba(0,0,0,0.1)',
-              }}
-            >
-              {c.name}
-            </button>
-          ))}
+        <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Explore Data</h2>
+        <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginBottom: '20px' }}>
+          <button 
+            onClick={() => setShowNetwork(false)}
+            className={`smooth-button ${!showNetwork ? 'active' : ''}`}
+            style={{
+              padding: '15px 25px',
+              backgroundColor: !showNetwork ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
+              color: !showNetwork ? 'white' : '#333',
+              border: `3px solid ${!showNetwork ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
+              borderRadius: '25px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500',
+              boxShadow: !showNetwork
+                ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
+                : '0 4px 12px rgba(0,0,0,0.1)',
+            }}
+          >
+            Country Details
+          </button>
+          <button 
+            onClick={() => setShowNetwork(true)}
+            className={`smooth-button ${showNetwork ? 'active' : ''}`}
+            style={{
+              padding: '15px 25px',
+              backgroundColor: showNetwork ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
+              color: showNetwork ? 'white' : '#333',
+              border: `3px solid ${showNetwork ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
+              borderRadius: '25px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500',
+              boxShadow: showNetwork
+                ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
+                : '0 4px 12px rgba(0,0,0,0.1)',
+            }}
+          >
+            Meeting Network
+          </button>
         </div>
       </div>
+
+      {showNetwork ? (
+        <div className="animated-container" style={{ marginBottom: '40px' }}>
+          <CountryNetworkChart 
+            countries={countries}
+            relationships={relationships}
+            meetings={meetings}
+            onNodeClick={(country) => {
+              setSelected(country);
+              setShowNetwork(false);
+              loadCountry(country.code);
+            }}
+          />
+        </div>
+      ) : (
+        <div className="animated-container" style={{ marginBottom: '40px', textAlign: 'center' }}>
+          <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Select a Country</h2>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center' }}>
+            {countries.map((c, index) => (
+              <button 
+                key={c.code}
+                onClick={() => loadCountry(c.code)}
+                className={`smooth-button stagger-fade-in`}
+                style={{
+                  padding: '15px 25px',
+                  backgroundColor: selected?.code === c.code ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
+                  color: selected?.code === c.code ? 'white' : '#333',
+                  border: `3px solid ${selected?.code === c.code ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
+                  borderRadius: '25px',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  animationDelay: `${index * 0.1}s`,
+                  boxShadow: selected?.code === c.code 
+                    ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
+                    : '0 4px 12px rgba(0,0,0,0.1)',
+                }}
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {selected && (
         <div data-testid="country-details" style={{ marginTop: '40px' }}>
