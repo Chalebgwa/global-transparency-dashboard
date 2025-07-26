@@ -59,25 +59,25 @@ describe('World Leader Meetings API', () => {
 
   test('GET /api/v1/countries/:code/meetings should return country meetings', async () => {
     const response = await request(app)
-      .get('/api/v1/countries/US/meetings')
+      .get('/api/v1/countries/BW/meetings')
       .expect(200);
     
     expect(Array.isArray(response.body)).toBe(true);
     response.body.forEach(meeting => {
-      expect(meeting.countries).toContain('US');
+      expect(meeting.countries).toContain('BW');
     });
   });
 
   test('GET /api/v1/countries/:code/relationships should return country relationships', async () => {
     const response = await request(app)
-      .get('/api/v1/countries/US/relationships')
+      .get('/api/v1/countries/BW/relationships')
       .expect(200);
     
     expect(typeof response.body).toBe('object');
     
     const relationshipKeys = Object.keys(response.body);
     relationshipKeys.forEach(key => {
-      expect(key).toContain('US');
+      expect(key).toContain('BW');
     });
   });
 

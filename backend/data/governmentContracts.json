@@ -1,0 +1,106 @@
+{
+  "BW": [
+    {
+      "id": "BW-CONTRACT-2024-001",
+      "title": "Gaborone-Lobatse Highway Upgrade",
+      "contractor": "Roads Construction Company (Pty) Ltd",
+      "amount": 450000000,
+      "currency": "BWP",
+      "date_awarded": "2024-01-15",
+      "completion_date": "2025-12-31",
+      "status": "ongoing",
+      "procurement_method": "open_tender",
+      "department": "Ministry of Transport and Public Works",
+      "transparency_score": 8.5,
+      "public_documents": true
+    },
+    {
+      "id": "BW-CONTRACT-2024-002", 
+      "title": "Francistown General Hospital Medical Equipment",
+      "contractor": "MedEquip Botswana",
+      "amount": 85000000,
+      "currency": "BWP",
+      "date_awarded": "2024-02-10",
+      "completion_date": "2024-08-30",
+      "status": "completed",
+      "procurement_method": "restricted_tender",
+      "department": "Ministry of Health",
+      "transparency_score": 7.2,
+      "public_documents": true
+    },
+    {
+      "id": "BW-CONTRACT-2024-003",
+      "title": "Jwaneng Mine Expansion Infrastructure",
+      "contractor": "Debswana Diamond Company",
+      "amount": 1200000000,
+      "currency": "BWP",
+      "date_awarded": "2024-03-01",
+      "completion_date": "2026-06-30",
+      "status": "ongoing",
+      "procurement_method": "direct_negotiation",
+      "department": "Ministry of Minerals and Energy",
+      "transparency_score": 9.1,
+      "public_documents": true
+    },
+    {
+      "id": "BW-CONTRACT-2023-045",
+      "title": "School Feeding Programme Supplies",
+      "contractor": "National Food Distributors",
+      "amount": 125000000,
+      "currency": "BWP",
+      "date_awarded": "2023-08-15",
+      "completion_date": "2024-07-31",
+      "status": "completed",
+      "procurement_method": "open_tender",
+      "department": "Ministry of Education",
+      "transparency_score": 6.8,
+      "public_documents": false
+    }
+  ],
+  "ZA": [
+    {
+      "id": "ZA-CONTRACT-2024-001",
+      "title": "Renewable Energy Independent Power Producer Programme",
+      "contractor": "Enel Green Power RSA",
+      "amount": 15000000000,
+      "currency": "ZAR",
+      "date_awarded": "2024-01-20",
+      "completion_date": "2026-12-31",
+      "status": "ongoing",
+      "procurement_method": "competitive_bid",
+      "department": "Department of Energy",
+      "transparency_score": 8.7,
+      "public_documents": true
+    },
+    {
+      "id": "ZA-CONTRACT-2024-002",
+      "title": "Gautrain Bus Rapid Transit Extension",
+      "contractor": "Bombela Concession Company",
+      "amount": 8500000000,
+      "currency": "ZAR", 
+      "date_awarded": "2024-02-15",
+      "completion_date": "2027-03-31",
+      "status": "ongoing",
+      "procurement_method": "public_private_partnership",
+      "department": "Gauteng Provincial Government",
+      "transparency_score": 7.9,
+      "public_documents": true
+    }
+  ],
+  "NA": [
+    {
+      "id": "NA-CONTRACT-2024-001",
+      "title": "Windhoek Water Desalination Plant",
+      "contractor": "Orano Mining Namibia",
+      "amount": 2800000000,
+      "currency": "NAD",
+      "date_awarded": "2024-01-10",
+      "completion_date": "2026-09-30",
+      "status": "ongoing",
+      "procurement_method": "international_tender",
+      "department": "Ministry of Agriculture, Water and Land Reform",
+      "transparency_score": 8.3,
+      "public_documents": true
+    }
+  ]
+}
