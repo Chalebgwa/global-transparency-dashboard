@@ -103,6 +103,128 @@ app.get('/api/v1/relationships', (req, res) => {
   const worldLeaderMeetings = require('./data/worldLeaderMeetings.json');
   res.json(worldLeaderMeetings.relationships);
 });
+
+/**
+ * @swagger
+ * /api/v1/corruption:
+ *   get:
+ *     summary: Get all corruption cases across countries
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [ongoing, resolved, closed]
+ *         description: Filter by case status
+ *       - in: query
+ *         name: severity
+ *         schema:
+ *           type: string
+ *           enum: [low, medium, high, critical]
+ *         description: Filter by severity level
+ *       - in: query
+ *         name: country
+ *         schema:
+ *           type: string
+ *         description: Filter by country code
+ *     responses:
+ *       200:
+ *         description: Array of corruption cases from all countries
+ */
+app.get('/api/v1/corruption', (req, res) => {
+  const corruptionCases = require('./data/corruptionCases.json');
+  let allCases = [];
+  
+  // Flatten all cases from all countries
+  Object.keys(corruptionCases).forEach(countryCode => {
+    const cases = corruptionCases[countryCode].map(caseItem => ({
+      ...caseItem,
+      country_code: countryCode
+    }));
+    allCases = allCases.concat(cases);
+  });
+  
+  const { status, severity, country } = req.query;
+  
+  // Apply filters
+  if (status) {
+    allCases = allCases.filter(caseItem => caseItem.status === status);
+  }
+  
+  if (severity) {
+    allCases = allCases.filter(caseItem => caseItem.severity === severity);
+  }
+  
+  if (country) {
+    allCases = allCases.filter(caseItem => caseItem.country_code === country.toUpperCase());
+  }
+  
+  // Sort by date (most recent first)
+  allCases.sort((a, b) => new Date(b.date_reported) - new Date(a.date_reported));
+  
+  res.json(allCases);
+});
+
+/**
+ * @swagger
+ * /api/v1/contracts:
+ *   get:
+ *     summary: Get all government contracts across countries
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [ongoing, completed, cancelled]
+ *         description: Filter by contract status
+ *       - in: query
+ *         name: min_amount
+ *         schema:
+ *           type: number
+ *         description: Minimum contract amount
+ *       - in: query
+ *         name: country
+ *         schema:
+ *           type: string
+ *         description: Filter by country code
+ *     responses:
+ *       200:
+ *         description: Array of government contracts from all countries
+ */
+app.get('/api/v1/contracts', (req, res) => {
+  const governmentContracts = require('./data/governmentContracts.json');
+  let allContracts = [];
+  
+  // Flatten all contracts from all countries
+  Object.keys(governmentContracts).forEach(countryCode => {
+    const contracts = governmentContracts[countryCode].map(contract => ({
+      ...contract,
+      country_code: countryCode
+    }));
+    allContracts = allContracts.concat(contracts);
+  });
+  
+  const { status, min_amount, country } = req.query;
+  
+  // Apply filters
+  if (status) {
+    allContracts = allContracts.filter(contract => contract.status === status);
+  }
+  
+  if (min_amount) {
+    allContracts = allContracts.filter(contract => contract.amount >= parseFloat(min_amount));
+  }
+  
+  if (country) {
+    allContracts = allContracts.filter(contract => contract.country_code === country.toUpperCase());
+  }
+  
+  // Sort by amount (largest first)
+  allContracts.sort((a, b) => b.amount - a.amount);
+  
+  res.json(allContracts);
+});
+
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 if (require.main === module) {

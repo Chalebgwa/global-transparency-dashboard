@@ -7,6 +7,8 @@ const cpiHistory = require('../data/cpiHistory.json');
 const healthHistory = require('../data/healthHistory.json');
 const educationHistory = require('../data/educationHistory.json');
 const worldLeaderMeetings = require('../data/worldLeaderMeetings.json');
+const corruptionCases = require('../data/corruptionCases.json');
+const governmentContracts = require('../data/governmentContracts.json');
 
 // Helper function to validate country code
 function validateCountryCode(code) {
@@ -553,6 +555,125 @@ router.get('/:code/relationships', (req, res) => {
   });
   
   res.json(countryRelationships);
+});
+
+/**
+ * @swagger
+ * /api/v1/countries/{code}/corruption:
+ *   get:
+ *     summary: Get corruption cases for a specific country
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ISO country code
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [ongoing, resolved, closed]
+ *         description: Filter by case status
+ *       - in: query
+ *         name: severity
+ *         schema:
+ *           type: string
+ *           enum: [low, medium, high, critical]
+ *         description: Filter by severity level
+ *     responses:
+ *       200:
+ *         description: Array of corruption cases
+ *       404:
+ *         description: Country not found
+ */
+router.get('/:code/corruption', (req, res) => {
+  const code = req.params.code.toUpperCase();
+  const country = validateCountryCode(code);
+  if (!country) {
+    return res.status(404).json({ error: 'Country not found' });
+  }
+  
+  let cases = corruptionCases[code] || [];
+  
+  const { status, severity } = req.query;
+  
+  // Filter by status
+  if (status) {
+    cases = cases.filter(caseItem => caseItem.status === status);
+  }
+  
+  // Filter by severity
+  if (severity) {
+    cases = cases.filter(caseItem => caseItem.severity === severity);
+  }
+  
+  res.json(cases);
+});
+
+/**
+ * @swagger
+ * /api/v1/countries/{code}/contracts:
+ *   get:
+ *     summary: Get government contracts for a specific country
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ISO country code
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [ongoing, completed, cancelled]
+ *         description: Filter by contract status
+ *       - in: query
+ *         name: min_amount
+ *         schema:
+ *           type: number
+ *         description: Minimum contract amount
+ *       - in: query
+ *         name: procurement_method
+ *         schema:
+ *           type: string
+ *         description: Filter by procurement method
+ *     responses:
+ *       200:
+ *         description: Array of government contracts
+ *       404:
+ *         description: Country not found
+ */
+router.get('/:code/contracts', (req, res) => {
+  const code = req.params.code.toUpperCase();
+  const country = validateCountryCode(code);
+  if (!country) {
+    return res.status(404).json({ error: 'Country not found' });
+  }
+  
+  let contracts = governmentContracts[code] || [];
+  
+  const { status, min_amount, procurement_method } = req.query;
+  
+  // Filter by status
+  if (status) {
+    contracts = contracts.filter(contract => contract.status === status);
+  }
+  
+  // Filter by minimum amount
+  if (min_amount) {
+    contracts = contracts.filter(contract => contract.amount >= parseFloat(min_amount));
+  }
+  
+  // Filter by procurement method
+  if (procurement_method) {
+    contracts = contracts.filter(contract => 
+      contract.procurement_method.toLowerCase().includes(procurement_method.toLowerCase())
+    );
+  }
+  
+  res.json(contracts);
 });
 
 module.exports = router;

@@ -1,0 +1,108 @@
+{
+  "BW": [
+    {
+      "id": "BW-2024-001",
+      "title": "Botswana Housing Corporation Tender Irregularities",
+      "description": "Investigation into alleged irregularities in BHC tender processes for low-cost housing projects",
+      "status": "ongoing",
+      "date_reported": "2024-03-15",
+      "amount_involved": 45000000,
+      "currency": "BWP",
+      "department": "Botswana Housing Corporation",
+      "severity": "medium",
+      "source": "Directorate on Corruption and Economic Crime (DCEC)"
+    },
+    {
+      "id": "BW-2024-002", 
+      "title": "Ministry of Health Medical Supplies Procurement",
+      "description": "Alleged overpricing and favoritism in medical supplies procurement during COVID-19 response",
+      "status": "resolved",
+      "date_reported": "2024-01-10",
+      "amount_involved": 28000000,
+      "currency": "BWP", 
+      "department": "Ministry of Health",
+      "severity": "high",
+      "source": "DCEC"
+    },
+    {
+      "id": "BW-2023-012",
+      "title": "Diamond Trading Company Revenue Discrepancies",
+      "description": "Investigation into discrepancies in diamond trading revenue reporting",
+      "status": "resolved",
+      "date_reported": "2023-08-22",
+      "amount_involved": 156000000,
+      "currency": "BWP",
+      "department": "Debswana Diamond Company",
+      "severity": "high",
+      "source": "DCEC"
+    }
+  ],
+  "ZA": [
+    {
+      "id": "ZA-2024-001",
+      "title": "State Capture Commission Follow-up",
+      "description": "Ongoing investigations and prosecutions following the State Capture Commission recommendations",
+      "status": "ongoing",
+      "date_reported": "2024-02-01",
+      "amount_involved": 50000000000,
+      "currency": "ZAR",
+      "department": "Multiple State Entities",
+      "severity": "critical",
+      "source": "National Prosecuting Authority"
+    },
+    {
+      "id": "ZA-2024-002",
+      "title": "Municipal Infrastructure Tender Fraud",
+      "description": "Investigation into fraudulent tender processes in multiple municipalities",
+      "status": "ongoing", 
+      "date_reported": "2024-01-15",
+      "amount_involved": 2800000000,
+      "currency": "ZAR",
+      "department": "Local Government",
+      "severity": "high",
+      "source": "Special Investigating Unit (SIU)"
+    }
+  ],
+  "NA": [
+    {
+      "id": "NA-2024-001",
+      "title": "Fishrot Scandal Prosecutions",
+      "description": "Ongoing prosecutions related to the Fishrot fishing quotas corruption scandal",
+      "status": "ongoing",
+      "date_reported": "2024-01-08",
+      "amount_involved": 140000000,
+      "currency": "NAD",
+      "department": "Ministry of Fisheries",
+      "severity": "critical",
+      "source": "Anti-Corruption Commission"
+    }
+  ],
+  "ZW": [
+    {
+      "id": "ZW-2024-001",
+      "title": "Gold Mafia Investigations",
+      "description": "Investigation into gold smuggling and money laundering networks",
+      "status": "ongoing",
+      "date_reported": "2024-02-12",
+      "amount_involved": 1200000000,
+      "currency": "USD",
+      "department": "Reserve Bank of Zimbabwe",
+      "severity": "critical",
+      "source": "Zimbabwe Anti-Corruption Commission"
+    }
+  ],
+  "ZM": [
+    {
+      "id": "ZM-2024-001",
+      "title": "Social Cash Transfer Fraud",
+      "description": "Investigation into fraudulent social cash transfer payments",
+      "status": "ongoing",
+      "date_reported": "2024-01-20",
+      "amount_involved": 85000000,
+      "currency": "ZMW",
+      "department": "Ministry of Community Development",
+      "severity": "medium",
+      "source": "Anti-Corruption Commission"
+    }
+  ]
+}
