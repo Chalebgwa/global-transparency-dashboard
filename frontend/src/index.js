@@ -6,7 +6,7 @@ import CircularProgress from './components/CircularProgress';
 import FlowingMultiChart from './components/FlowingMultiChart';
 import FloatingParticles from './components/FloatingParticles';
 import CountryNetworkChart from './components/CountryNetworkChart';
-import './styles/animations.css';
+import './styles/modern.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -98,87 +98,28 @@ function App() {
   };
 
   return (
-    <>
-      <FloatingParticles count={25} />
-      <div style={{ 
-        padding: '20px', 
-        fontFamily: 'Georgia, serif',
-        background: 'linear-gradient(135deg, #f8f6f3 0%, #f0e8e0 50%, #e8f0f8 100%)',
-        backgroundSize: '300% 300%',
-        animation: 'smoothGradientShift 20s ease infinite',
-        minHeight: '100vh',
-        position: 'relative'
-      }}>
-      <div className="animated-container" style={{ 
-        textAlign: 'center', 
-        marginBottom: '40px',
-        background: 'linear-gradient(135deg, #E8D5C4, #F4E4C1, #E8A598)',
-        backgroundSize: '200% 200%',
-        animation: 'smoothGradientShift 12s ease infinite',
-        padding: '30px',
-        borderRadius: '25px',
-        boxShadow: '0 12px 32px rgba(0,0,0,0.15), 0 0 40px rgba(142, 124, 195, 0.1)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.3)'
-      }}>
-        <h1 className="animated-title" style={{ 
-          color: '#8E7CC3', 
-          margin: '0 0 10px 0',
-          fontSize: '2.5em',
-          fontWeight: '300',
-          letterSpacing: '2px',
-          textShadow: '0 2px 10px rgba(142, 124, 195, 0.2)'
-        }}>
+    <div className="modern-app">
+      <div className="modern-header modern-fade-in">
+        <h1 className="modern-title">
           Global Transparency Dashboard
         </h1>
-        <p style={{ 
-          color: '#666', 
-          fontSize: '1.1em',
-          fontStyle: 'italic',
-          margin: 0
-        }}>
-          Organic visualization of government transparency metrics inspired by nature's patterns
+        <p className="modern-subtitle">
+          Professional insights into government transparency metrics across nations
         </p>
       </div>
       
-      <div className="animated-container" style={{ marginBottom: '40px', textAlign: 'center' }}>
-        <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Explore Data</h2>
-        <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginBottom: '20px' }}>
+      <div className="modern-nav modern-fade-in">
+        <h2>Explore Data</h2>
+        <div className="modern-btn-group">
           <button 
             onClick={() => setShowNetwork(false)}
-            className={`smooth-button ${!showNetwork ? 'active' : ''}`}
-            style={{
-              padding: '15px 25px',
-              backgroundColor: !showNetwork ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
-              color: !showNetwork ? 'white' : '#333',
-              border: `3px solid ${!showNetwork ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
-              borderRadius: '25px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: '500',
-              boxShadow: !showNetwork
-                ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
-                : '0 4px 12px rgba(0,0,0,0.1)',
-            }}
+            className={`modern-btn ${!showNetwork ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
           >
             Country Details
           </button>
           <button 
             onClick={() => setShowNetwork(true)}
-            className={`smooth-button ${showNetwork ? 'active' : ''}`}
-            style={{
-              padding: '15px 25px',
-              backgroundColor: showNetwork ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
-              color: showNetwork ? 'white' : '#333',
-              border: `3px solid ${showNetwork ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
-              borderRadius: '25px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: '500',
-              boxShadow: showNetwork
-                ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
-                : '0 4px 12px rgba(0,0,0,0.1)',
-            }}
+            className={`modern-btn ${showNetwork ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
           >
             Meeting Network
           </button>
@@ -186,7 +127,7 @@ function App() {
       </div>
 
       {showNetwork ? (
-        <div className="animated-container" style={{ marginBottom: '40px' }}>
+        <div className="modern-section modern-fade-in">
           <CountryNetworkChart 
             countries={countries}
             relationships={relationships}
@@ -199,28 +140,14 @@ function App() {
           />
         </div>
       ) : (
-        <div className="animated-container" style={{ marginBottom: '40px', textAlign: 'center' }}>
-          <h2 style={{ color: '#8E7CC3', marginBottom: '20px' }}>Select a Country</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center' }}>
+        <div className="modern-nav modern-fade-in">
+          <h2>Select a Country</h2>
+          <div className="modern-country-grid">
             {countries.map((c, index) => (
               <button 
                 key={c.code}
                 onClick={() => loadCountry(c.code)}
-                className={`smooth-button stagger-fade-in`}
-                style={{
-                  padding: '15px 25px',
-                  backgroundColor: selected?.code === c.code ? '#8E7CC3' : 'rgba(255, 255, 255, 0.9)',
-                  color: selected?.code === c.code ? 'white' : '#333',
-                  border: `3px solid ${selected?.code === c.code ? '#8E7CC3' : 'rgba(232, 213, 196, 0.8)'}`,
-                  borderRadius: '25px',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  animationDelay: `${index * 0.1}s`,
-                  boxShadow: selected?.code === c.code 
-                    ? '0 8px 20px rgba(142, 124, 195, 0.4), 0 0 30px rgba(142, 124, 195, 0.2)' 
-                    : '0 4px 12px rgba(0,0,0,0.1)',
-                }}
+                className={`modern-btn modern-stagger modern-fade-in ${selected?.code === c.code ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
               >
                 {c.name}
               </button>
@@ -230,159 +157,108 @@ function App() {
       )}
 
       {selected && (
-        <div data-testid="country-details" style={{ marginTop: '40px' }}>
-          <h2 style={{ 
-            textAlign: 'center', 
-            color: '#8E7CC3', 
-            fontSize: '2em',
-            marginBottom: '40px',
-            fontWeight: '300'
-          }}>
-            {selected.name} - Transparency Insights
-          </h2>
-          
-          {/* Organic Key Metrics with Circular Progress */}
-          <div className="animated-container" style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-            gap: '20px', 
-            marginBottom: '50px',
-            justifyItems: 'center'
-          }}>
-            <div className="stagger-fade-in">
-              <CircularProgress 
-                value={selected.cpi} 
-                maxValue={100}
-                title="Corruption Perception"
-                color="#A8C8E8"
-              />
+        <div data-testid="country-details">
+          <div className="modern-section modern-fade-in">
+            <h2 className="modern-section-title">
+              {selected.name} - Transparency Insights
+            </h2>
+            
+            {/* Key Metrics */}
+            <div className="modern-metrics-grid">
+              <div className="modern-metric-card accent modern-stagger modern-fade-in">
+                <CircularProgress 
+                  value={selected.cpi} 
+                  maxValue={100}
+                  title="Corruption Perception"
+                  color="#0ea5e9"
+                />
+              </div>
+              <div className="modern-metric-card primary modern-stagger modern-fade-in">
+                <h3 className="modern-metric-title">Total Budget</h3>
+                <p className="modern-metric-value">
+                  {formatCurrency(selected.budget)}
+                </p>
+                <small className="modern-metric-subtitle">Current Year</small>
+              </div>
+              <div className="modern-metric-card warning modern-stagger modern-fade-in">
+                <h3 className="modern-metric-title">Health Per Capita</h3>
+                <p className="modern-metric-value">
+                  {formatCurrency(selected.health_exp)}
+                </p>
+                <small className="modern-metric-subtitle">Annual Expenditure</small>
+              </div>
+              <div className="modern-metric-card success modern-stagger modern-fade-in">
+                <h3 className="modern-metric-title">Education Per Capita</h3>
+                <p className="modern-metric-value">
+                  {formatCurrency(selected.education_exp)}
+                </p>
+                <small className="modern-metric-subtitle">Annual Expenditure</small>
+              </div>
             </div>
-            <div className="metric-card stagger-fade-in" style={{
-              '--card-color-1': '#E8A598',
-              '--card-color-2': '#F0D0C0',
-              borderRadius: '25px',
-              padding: '30px',
-              textAlign: 'center',
-              minWidth: '200px'
-            }}>
-              <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Total Budget</h3>
-              <p style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '0', color: '#fff' }}>
-                {formatCurrency(selected.budget)}
-              </p>
-              <small style={{ color: 'rgba(255,255,255,0.8)' }}>Current Year</small>
-            </div>
-            <div className="metric-card stagger-fade-in" style={{
-              '--card-color-1': '#E8B4B8',
-              '--card-color-2': '#F4E4C1',
-              borderRadius: '25px',
-              padding: '30px',
-              textAlign: 'center',
-              minWidth: '200px'
-            }}>
-              <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Health Per Capita</h3>
-              <p style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '0', color: '#fff' }}>
-                {formatCurrency(selected.health_exp)}
-              </p>
-              <small style={{ color: 'rgba(255,255,255,0.8)' }}>Annual Expenditure</small>
-            </div>
-            <div className="metric-card stagger-fade-in" style={{
-              '--card-color-1': '#A8C8A8',
-              '--card-color-2': '#C0E0C0',
-              borderRadius: '25px',
-              padding: '30px',
-              textAlign: 'center',
-              minWidth: '200px'
-            }}>
-              <h3 style={{ margin: '0 0 15px 0', color: '#fff', fontSize: '1.1em' }}>Education Per Capita</h3>
-              <p style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '0', color: '#fff' }}>
-                {formatCurrency(selected.education_exp)}
-              </p>
-              <small style={{ color: 'rgba(255,255,255,0.8)' }}>Annual Expenditure</small>
+
+            {/* Charts Grid */}
+            <div className="modern-charts-grid">
+              {/* Budget Breakdown Chart */}
+              {breakdown && (
+                <div className="modern-chart-container modern-stagger modern-fade-in">
+                  <OrganicBubbleChart 
+                    data={breakdown}
+                    title="Budget Allocation by Sector"
+                    formatValue={formatLargeNumber}
+                  />
+                </div>
+              )}
+
+              {/* Budget History Chart */}
+              {history.length > 0 && (
+                <div className="modern-chart-container modern-stagger modern-fade-in">
+                  <RadialTimeChart 
+                    data={history}
+                    title="Budget Evolution Over Time"
+                    color="#2563eb"
+                    formatValue={formatLargeNumber}
+                  />
+                </div>
+              )}
+
+              {/* Health & Education Chart */}
+              {healthHistory.length > 0 && educationHistory.length > 0 && (
+                <div className="modern-chart-container modern-stagger modern-fade-in">
+                  <FlowingMultiChart 
+                    healthData={healthHistory}
+                    educationData={educationHistory}
+                    title="Health vs Education Spending Trends"
+                    formatValue={formatCurrency}
+                  />
+                </div>
+              )}
+
+              {/* CPI History Chart */}
+              {cpiHistory.length > 0 && (
+                <div className="modern-chart-container modern-stagger modern-fade-in">
+                  <RadialTimeChart 
+                    data={cpiHistory}
+                    title="Corruption Perception Over Time"
+                    color="#0ea5e9"
+                    formatValue={(value) => `${value}/100`}
+                  />
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Fragapane-style Charts */}
-          <div className="animated-container" style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
-            gap: '30px',
-            marginBottom: '40px'
-          }}>
-            {/* Budget Breakdown as Organic Bubble Chart */}
-            {breakdown && (
-              <div className="chart-container stagger-fade-in">
-                <OrganicBubbleChart 
-                  data={breakdown}
-                  title="Budget Allocation by Sector"
-                  formatValue={formatLargeNumber}
-                />
-              </div>
-            )}
-
-            {/* Budget History as Radial Time Chart */}
-            {history.length > 0 && (
-              <div className="chart-container stagger-fade-in">
-                <RadialTimeChart 
-                  data={history}
-                  title="Budget Evolution Over Time"
-                  color="#8E7CC3"
-                  formatValue={formatLargeNumber}
-                />
-              </div>
-            )}
-
-            {/* Health & Education Flowing Multi-Chart */}
-            {healthHistory.length > 0 && educationHistory.length > 0 && (
-              <div className="chart-container stagger-fade-in">
-                <FlowingMultiChart 
-                  healthData={healthHistory}
-                  educationData={educationHistory}
-                  title="Health vs Education Spending Trends"
-                  formatValue={formatCurrency}
-                />
-              </div>
-            )}
-
-            {/* CPI History as Radial Chart */}
-            {cpiHistory.length > 0 && (
-              <div className="chart-container stagger-fade-in">
-                <RadialTimeChart 
-                  data={cpiHistory}
-                  title="Corruption Perception Over Time"
-                  color="#A8C8E8"
-                  formatValue={(value) => `${value}/100`}
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Organic Footer Note */}
-          <div className="animated-container glass-effect" style={{
-            textAlign: 'center',
-            padding: '30px',
-            background: 'linear-gradient(135deg, rgba(244, 228, 193, 0.8), rgba(232, 213, 196, 0.8))',
-            borderRadius: '25px',
-            marginTop: '40px',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
-          }}>
-            <p style={{ 
-              color: '#8E7CC3', 
-              fontStyle: 'italic',
-              margin: 0,
-              fontSize: '1.1em'
-            }}>
-              "Data visualized through nature's lens reveals patterns hidden in traditional charts"
+          {/* Professional Footer */}
+          <div className="modern-footer modern-fade-in">
+            <p className="modern-footer-quote">
+              "Professional transparency analysis powered by comprehensive data visualization"
             </p>
-            <small style={{ color: '#999', display: 'block', marginTop: '10px' }}>
-              Visualization style inspired by Federica Fragapane's organic data storytelling
+            <small className="modern-footer-attribution">
+              Global Transparency Dashboard - Empowering informed decisions through data
             </small>
           </div>
         </div>
       )}
     </div>
-    </>
   );
 }
 

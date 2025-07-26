@@ -234,17 +234,15 @@ const CircularProgress = ({ value, maxValue = 100, title, color = '#8E7CC3' }) =
   }, [value, maxValue, title, color]);
 
   return (
-    <div className="chart-container" style={{ 
+    <div style={{ 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center',
-      padding: '20px',
-      background: 'rgba(250, 250, 250, 0.9)',
-      backdropFilter: 'blur(20px)',
-      borderRadius: '20px',
-      margin: '10px',
-      border: '1px solid rgba(255, 255, 255, 0.3)',
-      boxShadow: '0 8px 24px rgba(0,0,0,0.1), 0 0 40px rgba(142, 124, 195, 0.05)'
+      padding: '1rem',
+      background: 'var(--white)',
+      borderRadius: 'var(--border-radius-lg)',
+      border: '1px solid var(--gray-200)',
+      boxShadow: 'var(--shadow-md)'
     }}>
       <svg ref={svgRef}></svg>
     </div>
