@@ -24,6 +24,193 @@ app.get('/api/v1/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+/**
+ * @swagger
+ * /api/v1/ndp12/projects:
+ *   get:
+ *     summary: Get all NDP 12 projects
+ *     tags: [NDP12]
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [planning, ongoing, completed, delayed, cancelled]
+ *         description: Filter by project status
+ *       - in: query
+ *         name: ministry
+ *         schema:
+ *           type: string
+ *         description: Filter by ministry
+ *       - in: query
+ *         name: sector
+ *         schema:
+ *           type: string
+ *         description: Filter by sector
+ *       - in: query
+ *         name: priority
+ *         schema:
+ *           type: string
+ *           enum: [high, medium, low]
+ *         description: Filter by priority
+ *     responses:
+ *       200:
+ *         description: Array of NDP 12 projects
+ */
+app.get('/api/v1/ndp12/projects', (req, res) => {
+  const ndp12Projects = require('./data/ndp12Projects.json');
+  let projects = ndp12Projects.BW || [];
+  
+  const { status, ministry, sector, priority } = req.query;
+  
+  if (status) {
+    projects = projects.filter(p => p.status === status);
+  }
+  
+  if (ministry) {
+    projects = projects.filter(p => p.ministry.toLowerCase().includes(ministry.toLowerCase()));
+  }
+  
+  if (sector) {
+    projects = projects.filter(p => p.sector.toLowerCase().includes(sector.toLowerCase()));
+  }
+  
+  if (priority) {
+    projects = projects.filter(p => p.priority === priority);
+  }
+  
+  res.json(projects);
+});
+
+/**
+ * @swagger
+ * /api/v1/ndp12/projects/{id}:
+ *   get:
+ *     summary: Get a specific NDP 12 project by ID
+ *     tags: [NDP12]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Project ID
+ *     responses:
+ *       200:
+ *         description: Project details
+ *       404:
+ *         description: Project not found
+ */
+app.get('/api/v1/ndp12/projects/:id', (req, res) => {
+  const ndp12Projects = require('./data/ndp12Projects.json');
+  const projects = ndp12Projects.BW || [];
+  const project = projects.find(p => p.id === req.params.id);
+  
+  if (!project) {
+    return res.status(404).json({ error: 'Project not found' });
+  }
+  
+  res.json(project);
+});
+
+/**
+ * @swagger
+ * /api/v1/ndp12/kpis:
+ *   get:
+ *     summary: Get all NDP 12 Key Performance Indicators
+ *     tags: [NDP12]
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *           enum: [economic, social, environmental, governance]
+ *         description: Filter by KPI category
+ *     responses:
+ *       200:
+ *         description: Array of KPIs
+ */
+app.get('/api/v1/ndp12/kpis', (req, res) => {
+  const kpisData = require('./data/ndp12KPIs.json');
+  let kpis = kpisData.kpis || [];
+  
+  const { category } = req.query;
+  
+  if (category) {
+    kpis = kpis.filter(k => k.category === category);
+  }
+  
+  res.json(kpis);
+});
+
+/**
+ * @swagger
+ * /api/v1/ndp12/kpis/{code}:
+ *   get:
+ *     summary: Get a specific KPI by code
+ *     tags: [NDP12]
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: KPI code
+ *     responses:
+ *       200:
+ *         description: KPI details
+ *       404:
+ *         description: KPI not found
+ */
+app.get('/api/v1/ndp12/kpis/:code', (req, res) => {
+  const kpisData = require('./data/ndp12KPIs.json');
+  const kpis = kpisData.kpis || [];
+  const kpi = kpis.find(k => k.kpi_code === req.params.code.toUpperCase());
+  
+  if (!kpi) {
+    return res.status(404).json({ error: 'KPI not found' });
+  }
+  
+  res.json(kpi);
+});
+
+/**
+ * @swagger
+ * /api/v1/ndp12/dashboard:
+ *   get:
+ *     summary: Get dashboard summary statistics for NDP 12
+ *     tags: [NDP12]
+ *     responses:
+ *       200:
+ *         description: Dashboard summary data
+ */
+app.get('/api/v1/ndp12/dashboard', (req, res) => {
+  const ndp12Projects = require('./data/ndp12Projects.json');
+  const kpisData = require('./data/ndp12KPIs.json');
+  const projects = ndp12Projects.BW || [];
+  const kpis = kpisData.kpis || [];
+  
+  const summary = {
+    total_projects: projects.length,
+    ongoing_projects: projects.filter(p => p.status === 'ongoing').length,
+    completed_projects: projects.filter(p => p.status === 'completed').length,
+    delayed_projects: projects.filter(p => p.status === 'delayed').length,
+    total_budget_allocated: projects.reduce((sum, p) => sum + p.budget_allocated, 0),
+    total_budget_spent: projects.reduce((sum, p) => sum + p.budget_spent, 0),
+    avg_completion: Math.round(projects.reduce((sum, p) => sum + p.completion_percentage, 0) / projects.length),
+    total_kpis: kpis.length,
+    kpis_on_track: kpis.filter(k => k.current_value >= k.baseline_value).length,
+    kpis_by_category: {
+      economic: kpis.filter(k => k.category === 'economic').length,
+      social: kpis.filter(k => k.category === 'social').length,
+      environmental: kpis.filter(k => k.category === 'environmental').length,
+      governance: kpis.filter(k => k.category === 'governance').length
+    }
+  };
+  
+  res.json(summary);
+});
+
 app.use('/api/v1/countries', countriesRouter);
 
 /**
