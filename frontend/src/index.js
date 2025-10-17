@@ -8,6 +8,7 @@ import FloatingParticles from './components/FloatingParticles';
 import CountryNetworkChart from './components/CountryNetworkChart';
 import CorruptionTracker from './components/CorruptionTracker';
 import ContractsTracker from './components/ContractsTracker';
+import NDP12Dashboard from './components/NDP12Dashboard';
 import './styles/modern.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const [meetings, setMeetings] = useState([]);
   const [relationships, setRelationships] = useState({});
   const [showNetwork, setShowNetwork] = useState(false);
+  const [showNDP12, setShowNDP12] = useState(true);
   const [corruptionCases, setCorruptionCases] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState('all');
@@ -133,33 +135,42 @@ function App() {
     <div className="modern-app">
       <div className="modern-header modern-fade-in">
         <h1 className="modern-title">
-          🌍 Southern Africa Transparency Hub
+          🇧🇼 National Delivery Dashboard for NDP 12
         </h1>
         <p className="modern-subtitle">
-          Fighting corruption and promoting government transparency across Southern Africa and beyond
+          Real-time monitoring, transparency, and accountability for Botswana's National Development Plan
+        </p>
+        <p className="modern-subtitle" style={{fontSize: '0.9rem', marginTop: '5px'}}>
+          <strong>By Pako Chalebgwa</strong> — Independent GovTech Consultant
         </p>
       </div>
       
       <div className="modern-nav modern-fade-in">
-        <h2>Explore Transparency Data</h2>
+        <h2>NDP 12 Monitoring Dashboard</h2>
         <div className="modern-btn-group">
           <button 
-            onClick={() => setShowNetwork(false)}
-            className={`modern-btn ${!showNetwork ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
+            onClick={() => { setShowNDP12(true); setShowNetwork(false); }}
+            className={`modern-btn ${showNDP12 ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
           >
-            📊 Country Analysis
+            🇧🇼 NDP 12 Dashboard
           </button>
           <button 
-            onClick={() => setShowNetwork(true)}
+            onClick={() => { setShowNDP12(false); setShowNetwork(false); }}
+            className={`modern-btn ${!showNDP12 && !showNetwork ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
+          >
+            📊 Sector Analysis
+          </button>
+          <button 
+            onClick={() => { setShowNDP12(false); setShowNetwork(true); }}
             className={`modern-btn ${showNetwork ? 'modern-btn-primary' : 'modern-btn-secondary'}`}
           >
-            🌐 Meeting Network
+            🌐 Stakeholder Network
           </button>
         </div>
       </div>
 
       <div className="modern-nav modern-fade-in">
-        <h2>Filter by Region</h2>
+        <h2>Filter by Ministry/Sector</h2>
         <div className="region-selector">
           {regions.map(region => (
             <button
@@ -173,7 +184,11 @@ function App() {
         </div>
       </div>
 
-      {showNetwork ? (
+      {showNDP12 ? (
+        <div className="modern-section modern-fade-in">
+          <NDP12Dashboard apiBaseUrl={API_BASE_URL} />
+        </div>
+      ) : showNetwork ? (
         <div className="modern-section modern-fade-in">
           <CountryNetworkChart 
             countries={countries}
@@ -182,13 +197,14 @@ function App() {
             onNodeClick={(country) => {
               setSelected(country);
               setShowNetwork(false);
+              setShowNDP12(false);
               loadCountry(country.code);
             }}
           />
         </div>
       ) : (
         <div className="modern-nav modern-fade-in">
-          <h2>Select a Country</h2>
+          <h2>Select Ministry/Project Area</h2>
           <div className="modern-country-grid">
             {filteredCountries.map((c, index) => (
               <button 
@@ -208,7 +224,7 @@ function App() {
         <div data-testid="country-details">
           <div className="modern-section modern-fade-in">
             <h2 className="modern-section-title">
-              {selected.name} - Transparency Deep Dive 🔍
+              {selected.name} - NDP 12 Performance Dashboard 📊
             </h2>
             
             {/* Enhanced Key Metrics */}
@@ -349,21 +365,21 @@ function App() {
           {/* Enhanced Footer */}
           <div className="modern-footer modern-fade-in">
             <p className="modern-footer-quote">
-              "🌍 Empowering Southern Africa through transparency - Every citizen deserves accountability"
+              "🇧🇼 Building Botswana's most transparent government together — Every citizen deserves accountability"
             </p>
             <div style={{ marginTop: '15px' }}>
               <p style={{ fontSize: '0.9rem', marginBottom: '8px' }}>
-                🚀 <strong>Take Action:</strong> Use this data to advocate for transparency in your community
+                🚀 <strong>NDP 12 Vision:</strong> Sustainable economic diversification & inclusive growth
               </p>
               <p style={{ fontSize: '0.9rem', marginBottom: '8px' }}>
-                📧 <strong>Report Corruption:</strong> Contact your local anti-corruption agencies
+                📊 <strong>Real-time Monitoring:</strong> Track national development projects & KPIs
               </p>
               <p style={{ fontSize: '0.9rem' }}>
-                📱 <strong>Share:</strong> Spread awareness about government transparency
+                📱 <strong>Transparency:</strong> Open data for evidence-based decision making
               </p>
             </div>
             <small className="modern-footer-attribution">
-              🌟 Southern Africa Transparency Hub - Making government accountable to the people
+              🌟 National Delivery Dashboard — Pako Chalebgwa, Independent GovTech Consultant
             </small>
           </div>
         </div>
