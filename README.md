@@ -141,6 +141,48 @@ to explore Swagger UI and test endpoints.
 
 ---
 
+## 🧪 Testing
+
+The project includes comprehensive test coverage for both backend and frontend components.
+
+### Backend Tests
+
+```bash
+cd backend
+npm test              # run all tests
+npm test -- --coverage  # run with coverage report
+```
+
+**Test Coverage:**
+- **Overall: 92.6%** code coverage
+- 81 tests covering all API endpoints
+- Edge cases, error handling, and data validation
+- Tests for corruption tracking, contracts, NDP12 projects, KPIs, and more
+
+**Test Suites:**
+- Countries API tests
+- NDP12 (projects, KPIs, dashboard) tests
+- Corruption cases tests
+- Government contracts tests
+- World leader meetings tests
+- Health check tests
+- Edge cases and error handling tests
+- API documentation tests
+
+### Frontend Tests
+
+```bash
+cd frontend
+npm test              # run all tests
+```
+
+**Test Coverage:**
+- Utility function tests
+- Project structure validation
+- 5 tests ensuring code quality
+
+---
+
 ## 🎯 Value Proposition
 
 | Stakeholder | Benefit |
