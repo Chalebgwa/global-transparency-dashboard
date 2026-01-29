@@ -7,6 +7,10 @@ const countriesRouter = require('./routes/countries');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 
+const notImplemented = (message) => (req, res) => {
+  res.status(501).json({ error: 'Not implemented', message });
+};
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -57,30 +61,7 @@ app.get('/api/v1/health', (req, res) => {
  *       200:
  *         description: Array of NDP 12 projects
  */
-app.get('/api/v1/ndp12/projects', (req, res) => {
-  const ndp12Projects = require('./data/ndp12Projects.json');
-  let projects = ndp12Projects.BW || [];
-  
-  const { status, ministry, sector, priority } = req.query;
-  
-  if (status) {
-    projects = projects.filter(p => p.status === status);
-  }
-  
-  if (ministry) {
-    projects = projects.filter(p => p.ministry.toLowerCase().includes(ministry.toLowerCase()));
-  }
-  
-  if (sector) {
-    projects = projects.filter(p => p.sector.toLowerCase().includes(sector.toLowerCase()));
-  }
-  
-  if (priority) {
-    projects = projects.filter(p => p.priority === priority);
-  }
-  
-  res.json(projects);
-});
+app.get('/api/v1/ndp12/projects', notImplemented('NDP 12 project data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -101,17 +82,7 @@ app.get('/api/v1/ndp12/projects', (req, res) => {
  *       404:
  *         description: Project not found
  */
-app.get('/api/v1/ndp12/projects/:id', (req, res) => {
-  const ndp12Projects = require('./data/ndp12Projects.json');
-  const projects = ndp12Projects.BW || [];
-  const project = projects.find(p => p.id === req.params.id);
-  
-  if (!project) {
-    return res.status(404).json({ error: 'Project not found' });
-  }
-  
-  res.json(project);
-});
+app.get('/api/v1/ndp12/projects/:id', notImplemented('NDP 12 project data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -130,18 +101,7 @@ app.get('/api/v1/ndp12/projects/:id', (req, res) => {
  *       200:
  *         description: Array of KPIs
  */
-app.get('/api/v1/ndp12/kpis', (req, res) => {
-  const kpisData = require('./data/ndp12KPIs.json');
-  let kpis = kpisData.kpis || [];
-  
-  const { category } = req.query;
-  
-  if (category) {
-    kpis = kpis.filter(k => k.category === category);
-  }
-  
-  res.json(kpis);
-});
+app.get('/api/v1/ndp12/kpis', notImplemented('NDP 12 KPI data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -162,17 +122,7 @@ app.get('/api/v1/ndp12/kpis', (req, res) => {
  *       404:
  *         description: KPI not found
  */
-app.get('/api/v1/ndp12/kpis/:code', (req, res) => {
-  const kpisData = require('./data/ndp12KPIs.json');
-  const kpis = kpisData.kpis || [];
-  const kpi = kpis.find(k => k.kpi_code === req.params.code.toUpperCase());
-  
-  if (!kpi) {
-    return res.status(404).json({ error: 'KPI not found' });
-  }
-  
-  res.json(kpi);
-});
+app.get('/api/v1/ndp12/kpis/:code', notImplemented('NDP 12 KPI data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -184,32 +134,7 @@ app.get('/api/v1/ndp12/kpis/:code', (req, res) => {
  *       200:
  *         description: Dashboard summary data
  */
-app.get('/api/v1/ndp12/dashboard', (req, res) => {
-  const ndp12Projects = require('./data/ndp12Projects.json');
-  const kpisData = require('./data/ndp12KPIs.json');
-  const projects = ndp12Projects.BW || [];
-  const kpis = kpisData.kpis || [];
-  
-  const summary = {
-    total_projects: projects.length,
-    ongoing_projects: projects.filter(p => p.status === 'ongoing').length,
-    completed_projects: projects.filter(p => p.status === 'completed').length,
-    delayed_projects: projects.filter(p => p.status === 'delayed').length,
-    total_budget_allocated: projects.reduce((sum, p) => sum + p.budget_allocated, 0),
-    total_budget_spent: projects.reduce((sum, p) => sum + p.budget_spent, 0),
-    avg_completion: Math.round(projects.reduce((sum, p) => sum + p.completion_percentage, 0) / projects.length),
-    total_kpis: kpis.length,
-    kpis_on_track: kpis.filter(k => k.current_value >= k.baseline_value).length,
-    kpis_by_category: {
-      economic: kpis.filter(k => k.category === 'economic').length,
-      social: kpis.filter(k => k.category === 'social').length,
-      environmental: kpis.filter(k => k.category === 'environmental').length,
-      governance: kpis.filter(k => k.category === 'governance').length
-    }
-  };
-  
-  res.json(summary);
-});
+app.get('/api/v1/ndp12/dashboard', notImplemented('NDP 12 dashboard data is not available via public APIs yet.'));
 
 app.use('/api/v1/countries', countriesRouter);
 
@@ -246,36 +171,7 @@ app.use('/api/v1/countries', countriesRouter);
  *       200:
  *         description: Array of world leader meetings
  */
-app.get('/api/v1/meetings', (req, res) => {
-  const worldLeaderMeetings = require('./data/worldLeaderMeetings.json');
-  let meetings = worldLeaderMeetings.meetings;
-  
-  const { start_date, end_date, topic, type } = req.query;
-  
-  // Filter by date range
-  if (start_date || end_date) {
-    meetings = meetings.filter(meeting => {
-      const meetingDate = new Date(meeting.date);
-      if (start_date && meetingDate < new Date(start_date)) return false;
-      if (end_date && meetingDate > new Date(end_date)) return false;
-      return true;
-    });
-  }
-  
-  // Filter by topic
-  if (topic) {
-    meetings = meetings.filter(meeting => 
-      meeting.topic.toLowerCase().includes(topic.toLowerCase())
-    );
-  }
-  
-  // Filter by type
-  if (type) {
-    meetings = meetings.filter(meeting => meeting.type === type);
-  }
-  
-  res.json(meetings);
-});
+app.get('/api/v1/meetings', notImplemented('World leader meetings data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -286,10 +182,7 @@ app.get('/api/v1/meetings', (req, res) => {
  *       200:
  *         description: Country relationships based on leader meetings
  */
-app.get('/api/v1/relationships', (req, res) => {
-  const worldLeaderMeetings = require('./data/worldLeaderMeetings.json');
-  res.json(worldLeaderMeetings.relationships);
-});
+app.get('/api/v1/relationships', notImplemented('Relationship network data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -318,39 +211,7 @@ app.get('/api/v1/relationships', (req, res) => {
  *       200:
  *         description: Array of corruption cases from all countries
  */
-app.get('/api/v1/corruption', (req, res) => {
-  const corruptionCases = require('./data/corruptionCases.json');
-  let allCases = [];
-  
-  // Flatten all cases from all countries
-  Object.keys(corruptionCases).forEach(countryCode => {
-    const cases = corruptionCases[countryCode].map(caseItem => ({
-      ...caseItem,
-      country_code: countryCode
-    }));
-    allCases = allCases.concat(cases);
-  });
-  
-  const { status, severity, country } = req.query;
-  
-  // Apply filters
-  if (status) {
-    allCases = allCases.filter(caseItem => caseItem.status === status);
-  }
-  
-  if (severity) {
-    allCases = allCases.filter(caseItem => caseItem.severity === severity);
-  }
-  
-  if (country) {
-    allCases = allCases.filter(caseItem => caseItem.country_code === country.toUpperCase());
-  }
-  
-  // Sort by date (most recent first)
-  allCases.sort((a, b) => new Date(b.date_reported) - new Date(a.date_reported));
-  
-  res.json(allCases);
-});
+app.get('/api/v1/corruption', notImplemented('Corruption case data is not available via public APIs yet.'));
 
 /**
  * @swagger
@@ -378,39 +239,7 @@ app.get('/api/v1/corruption', (req, res) => {
  *       200:
  *         description: Array of government contracts from all countries
  */
-app.get('/api/v1/contracts', (req, res) => {
-  const governmentContracts = require('./data/governmentContracts.json');
-  let allContracts = [];
-  
-  // Flatten all contracts from all countries
-  Object.keys(governmentContracts).forEach(countryCode => {
-    const contracts = governmentContracts[countryCode].map(contract => ({
-      ...contract,
-      country_code: countryCode
-    }));
-    allContracts = allContracts.concat(contracts);
-  });
-  
-  const { status, min_amount, country } = req.query;
-  
-  // Apply filters
-  if (status) {
-    allContracts = allContracts.filter(contract => contract.status === status);
-  }
-  
-  if (min_amount) {
-    allContracts = allContracts.filter(contract => contract.amount >= parseFloat(min_amount));
-  }
-  
-  if (country) {
-    allContracts = allContracts.filter(contract => contract.country_code === country.toUpperCase());
-  }
-  
-  // Sort by amount (largest first)
-  allContracts.sort((a, b) => b.amount - a.amount);
-  
-  res.json(allContracts);
-});
+app.get('/api/v1/contracts', notImplemented('Government contract data is not available via public APIs yet.'));
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

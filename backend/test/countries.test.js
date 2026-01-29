@@ -1,12 +1,18 @@
 const request = require('supertest');
 const app = require('../index');
+const { setupBotswanaApiMocks } = require('./helpers/mockBotswanaApis');
+
+beforeEach(() => {
+  setupBotswanaApiMocks();
+});
 
 describe('GET /api/v1/countries', () => {
   it('should return list of countries', async () => {
     const res = await request(app).get('/api/v1/countries');
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBeGreaterThan(0);
+    expect(res.body.length).toBe(1);
+    expect(res.body[0].code).toBe('BW');
   });
 });
 
@@ -15,6 +21,8 @@ describe('GET /api/v1/countries/:code', () => {
     const res = await request(app).get('/api/v1/countries/BW');
     expect(res.statusCode).toBe(200);
     expect(res.body.code).toBe('BW');
+    expect(res.body.indicators).toBeDefined();
+    expect(res.body.indicators.budget).toBeDefined();
   });
 
   it('should return 404 when country does not exist', async () => {
@@ -55,6 +63,7 @@ describe('Budget endpoints', () => {
     expect(res.body.sectors.health).toBeGreaterThan(0);
     expect(res.body.sectors.education).toBeGreaterThan(0);
     expect(res.body.total).toBeGreaterThan(0);
+    expect(res.body.currency).toBe('USD');
   });
 
   it('should return budget breakdown for specific year', async () => {
@@ -82,6 +91,7 @@ describe('CPI endpoints', () => {
     const res = await request(app).get('/api/v1/countries/BW/cpi');
     expect(res.statusCode).toBe(200);
     expect(res.body.value).toBeGreaterThan(0);
+    expect(res.body.value).toBeLessThanOrEqual(100);
     expect(res.body.source).toBeDefined();
     expect(res.body.timestamp).toBeDefined();
     expect(res.body.year).toBeDefined();
@@ -99,6 +109,7 @@ describe('CPI endpoints', () => {
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.every(item => item.year >= 2022 && item.year <= 2023)).toBe(true);
+    expect(res.body.every(item => item.value >= 0 && item.value <= 100)).toBe(true);
   });
 });
 
@@ -108,6 +119,7 @@ describe('Health endpoints', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.value).toBeGreaterThan(0);
     expect(res.body.currency).toBeDefined();
+    expect(res.body.unit).toBe('per_capita');
     expect(res.body.source).toBeDefined();
     expect(res.body.timestamp).toBeDefined();
     expect(res.body.year).toBeDefined();
@@ -127,6 +139,7 @@ describe('Education endpoints', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.value).toBeGreaterThan(0);
     expect(res.body.currency).toBeDefined();
+    expect(res.body.unit).toBe('per_capita');
     expect(res.body.source).toBeDefined();
     expect(res.body.timestamp).toBeDefined();
     expect(res.body.year).toBeDefined();
